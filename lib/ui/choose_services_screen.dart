@@ -74,7 +74,11 @@ class ServiceWidget extends StatelessWidget {
           isSelected: viewModel.isReservingHotel,
           onChange: viewModel.changeReservingHotel,
         ),
-        MyWidget(text: text,)
+        viewModel.isReservingHotel
+            ? MyWidget(
+                text: text,
+              )
+            : Container()
       ]),
     );
   }
