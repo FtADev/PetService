@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pet_service/cat_view_model.dart';
+import 'package:pet_service/dog_view_model.dart';
 import 'package:pet_service/ui/choose_pet_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -13,8 +15,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<HomeViewModel>(
-      create: (context) => HomeViewModel(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<HomeViewModel>(
+            create: (_) => HomeViewModel(),
+          ),
+          ChangeNotifierProvider<CatViewModel>(
+            create: (_) => CatViewModel() ,
+          ),
+          ChangeNotifierProvider<DogViewModel>(
+            create: (_) => DogViewModel() ,
+          ),
+        ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

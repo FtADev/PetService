@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/home_view_model.dart';
-import 'package:pet_service/ui/NightsNumberDialog.dart';
+import 'package:pet_service/cat_view_model.dart';
+import 'package:pet_service/dog_view_model.dart';
 import 'package:pet_service/ui/components/check_box.dart';
 import 'package:pet_service/ui/my_colors.dart';
 import 'package:provider/provider.dart';
@@ -11,45 +11,62 @@ class ChooseServices extends StatelessWidget {
   const ChooseServices({super.key, required this.text});
   @override
   Widget build(BuildContext context) {
-
-    return Consumer<HomeViewModel>(builder: (context, viewModel, child) {
+      return text == "Cat" ?
+      Consumer<CatViewModel>(builder: (context, viewModel, child) {
       return Scaffold(
         appBar: AppBar(
           title: Text("$text Service"),
         ),
-        body: Center(
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Text(
-              "Please select your service:",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            CheckBox(
-              title: "Grooming",
-              containerColor: blue,
-              containerBorderColor: blue_border,
-              isSelected: viewModel.isGrooming,
-              onChange: viewModel.changeGrooming,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            CheckBox(
-              title: "Reserving Hotel",
-              containerColor: blue,
-              containerBorderColor: blue_border,
-              isSelected: viewModel.isReservingHotel,
-              onChange: viewModel.changeReservingHotel,
-            ),
-            MyWidget()
-          ]),
+          body: ServiceWidget(viewModel: viewModel),
+        );
+    }) : Consumer<DogViewModel>(builder: (context, viewModel, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("$text Service"),
         ),
-      );
+        body: ServiceWidget(viewModel: viewModel,),
+        );
     });
+  }
+}
+
+class ServiceWidget extends StatelessWidget {
+  final viewModel;
+  const ServiceWidget({Key? key, required this.viewModel}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        const Text(
+          "Please select your service:",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+          ),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        CheckBox(
+          title: "Grooming",
+          containerColor: blue,
+          containerBorderColor: blue_border,
+          isSelected: viewModel.isGrooming,
+          onChange: viewModel.changeGrooming,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        CheckBox(
+          title: "Reserving Hotel",
+          containerColor: blue,
+          containerBorderColor: blue_border,
+          isSelected: viewModel.isReservingHotel,
+          onChange: viewModel.changeReservingHotel,
+        ),
+        // MyWidget()
+      ]),
+    );
   }
 }
