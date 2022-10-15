@@ -14,29 +14,24 @@ class ChooseServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return text == "Cat"
-        ? Consumer<CatViewModel>(builder: (context, viewModel, child) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text("$text Service"),
-              ),
-              body: ServiceWidget(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("$text Service"),
+      ),
+      body: text == "Cat"
+          ? Consumer<CatViewModel>(builder: (context, viewModel, child) {
+              return ServiceWidget(
                 viewModel: viewModel,
                 text: "Cat",
-              ),
-            );
-          })
-        : Consumer<DogViewModel>(builder: (context, viewModel, child) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text("$text Service"),
-              ),
-              body: ServiceWidget(
+              );
+            })
+          : Consumer<DogViewModel>(builder: (context, viewModel, child) {
+              return ServiceWidget(
                 viewModel: viewModel,
                 text: "Dog",
-              ),
-            );
-          });
+              );
+            }),
+    );
   }
 }
 
