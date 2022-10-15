@@ -1,16 +1,21 @@
-# pet_service
+# Pet Service
 
-A new Flutter project.
+What do you think how much does it cost to groom your pet and reserve hotel for it?
+
+Well, try this application :)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Before you start, you need to setup [Flutter SDK](https://docs.flutter.dev/get-started/install) and [Android Studio](https://developer.android.com/studio).
 
-A few resources to get you started if this is your first Flutter project:
+After cloning the project, run `flutter packages get`
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Then run `flutter run`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+And that's it :)
+
+## Screenshots
+
+<img src="1.png" alt="drawing" width="300"/>
+
+<img src="2.png" alt="drawing" width="300"/>
