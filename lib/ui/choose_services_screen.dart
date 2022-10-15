@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pet_service/ui/view_models/cat_view_model.dart';
 import 'package:pet_service/ui/view_models/dog_view_model.dart';
 import 'package:pet_service/ui/components/check_box.dart';
-import 'package:pet_service/ui/my_colors.dart';
 import 'package:pet_service/ui/nights_number_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -71,8 +70,8 @@ class ServiceWidget extends StatelessWidget {
             ),
             CheckBox(
               title: "Grooming",
-              containerColor: blue,
-              containerBorderColor: blue_border,
+              containerColor: const Color(0xFF78DDD8),
+              containerBorderColor: const Color(0xFF3AC1B0),
               isSelected: viewModel.isGrooming,
               onChange: viewModel.changeGrooming,
             ),
@@ -84,8 +83,8 @@ class ServiceWidget extends StatelessWidget {
               children: [
                 CheckBox(
                 title: "Reserving Hotel",
-                containerColor: blue,
-                containerBorderColor: blue_border,
+                containerColor: const Color(0xFF78DDD8),
+                containerBorderColor: const Color(0xFF3AC1B0),
                 isSelected: viewModel.isReservingHotel,
                 onChange: viewModel.changeReservingHotel,
               ),
