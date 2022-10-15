@@ -12,6 +12,44 @@ class ChooseServices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Container();
+    return Consumer<HomeViewModel>(builder: (context, viewModel, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("$text Service"),
+        ),
+        body: Center(
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            const Text(
+              "Please select your service:",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            CheckBox(
+              title: "Grooming",
+              containerColor: blue,
+              containerBorderColor: blue_border,
+              isSelected: viewModel.isGrooming,
+              onChange: viewModel.changeGrooming,
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            CheckBox(
+              title: "Reserving Hotel",
+              containerColor: blue,
+              containerBorderColor: blue_border,
+              isSelected: viewModel.isReservingHotel,
+              onChange: viewModel.changeReservingHotel,
+            ),
+            MyWidget()
+          ]),
+        ),
+      );
+    });
   }
 }
