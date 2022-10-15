@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:pet_service/model/calculate_request_model.dart';
+import 'package:pet_service/model/calculate_result_model.dart';
 import 'package:pet_service/repository/remote/urls.dart';
 
 class DioClient {
@@ -33,3 +35,24 @@ class DioClient {
   }
 }
 
+Future<CalculateResultModel?> calculateRequest(
+    CalculateRequestModel req) async {
+  Response response;
+  try {
+    Dio dio = Dio();
+    print(req.toJson());
+    response = await dio.post(
+      URLs.BASE_URL,
+      queryParameters: req.toJson(),
+    );
+    if (response.statusCode == 200) {
+      print(response.data);
+      return response.data;
+    } else {
+      return null;
+    }
+  } catch (e) {
+    print(e);
+    return null;
+  }
+}

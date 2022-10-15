@@ -1,55 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:pet_service/model/calculate_request_model.dart';
+import 'package:pet_service/model/calculate_result_model.dart';
+import 'package:pet_service/repository/remote/http_requests.dart' as http;
 import 'package:provider/provider.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  bool _isGrooming = false;
-  bool _isReservingHotel = false;
-  int _nightsNumber = 0;
+  int _cost = 0;
 
-  bool get isGrooming => _isGrooming;
-  bool get isReservingHotel => _isReservingHotel;
-  int get nightsNumber => _nightsNumber;
+  int get cost => _cost;
 
-  set isGrooming(bool value) {
-    if (value != _isGrooming) {
-      _isGrooming = value;
+  set cost(int value) {
+    if (value != _cost) {
+      _cost = value;
       notifyListeners();
     }
-  }
-
-  set isReservingHotel(bool value) {
-    if (value != _isReservingHotel) {
-      _isReservingHotel = value;
-      notifyListeners();
-    }
-  }
-
-  set nightsNumber(int value) {
-    if (value != _nightsNumber) {
-      _nightsNumber = value;
-      notifyListeners();
-    }
+    print(_cost);
   }
 
   static HomeViewModel of(BuildContext context) =>
       Provider.of<HomeViewModel>(context, listen: false);
 
 
-  void changeGrooming() {
-      isGrooming = !isGrooming;
-  }
-
-  void changeReservingHotel() {
-      isReservingHotel = !isReservingHotel;
-  }
-
-  void increaseNights() {
-      nightsNumber++;
-  }
-
-  void decreaseNights() {
-    if(nightsNumber > 0) {
-        nightsNumber--;
-    }
+  Future calculateRequest(CalculateRequestModel req) async {
+    CalculateResultModel? res = await http.calculateRequest(req);
+    (res != null && res.totalPrice != null) ? cost = res.totalPrice! : cost = 0;
   }
 }

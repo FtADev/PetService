@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_service/home_view_model.dart';
 import 'package:provider/provider.dart';
 
-class CatViewModel extends HomeViewModel {
+class CatViewModel extends ChangeNotifier {
   bool _isGrooming = false;
   bool _isReservingHotel = false;
   int _nightsNumber = 0;
