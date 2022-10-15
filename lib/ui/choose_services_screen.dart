@@ -3,9 +3,8 @@ import 'package:pet_service/cat_view_model.dart';
 import 'package:pet_service/dog_view_model.dart';
 import 'package:pet_service/ui/components/check_box.dart';
 import 'package:pet_service/ui/my_colors.dart';
+import 'package:pet_service/ui/nights_number_dialog.dart';
 import 'package:provider/provider.dart';
-
-import 'NightsNumberDialog.dart';
 
 class ChooseServices extends StatelessWidget {
   final String text;
@@ -42,49 +41,71 @@ class ServiceWidget extends StatelessWidget {
   const ServiceWidget({Key? key, required this.viewModel, required this.text})
       : super(key: key);
 
+  showTextDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (_) => DialogWidget(
+        text: text,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min, children: [
-        const Text(
-          "Please select your service:",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-          ),
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        CheckBox(
-          title: "Grooming",
-          containerColor: blue,
-          containerBorderColor: blue_border,
-          isSelected: viewModel.isGrooming,
-          onChange: viewModel.changeGrooming,
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        CheckBox(
-          title: "Reserving Hotel",
-          containerColor: blue,
-          containerBorderColor: blue_border,
-          isSelected: viewModel.isReservingHotel,
-          onChange: viewModel.changeReservingHotel,
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        viewModel.isReservingHotel
-            ? MyWidget(
-                text: text,
-              )
-            : Container()
-      ]),
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              "Please select your service:",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+              ),
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            CheckBox(
+              title: "Grooming",
+              containerColor: blue,
+              containerBorderColor: blue_border,
+              isSelected: viewModel.isGrooming,
+              onChange: viewModel.changeGrooming,
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CheckBox(
+                title: "Reserving Hotel",
+                containerColor: blue,
+                containerBorderColor: blue_border,
+                isSelected: viewModel.isReservingHotel,
+                onChange: viewModel.changeReservingHotel,
+              ),
+                viewModel.isReservingHotel
+                    ? GestureDetector(
+                      child: Text(
+                        "${viewModel.nightsNumber} Nights",
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 14,
+                        ),
+                      ),
+                      onTap: () => showTextDialog(context),
+                    )
+                    : Container()
+      ]
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+          ]),
     );
   }
 }

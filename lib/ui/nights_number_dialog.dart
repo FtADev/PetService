@@ -4,33 +4,10 @@ import 'package:provider/provider.dart';
 import '../cat_view_model.dart';
 import '../dog_view_model.dart';
 
-class MyWidget extends StatelessWidget {
+class DialogWidget extends StatelessWidget {
   final String text;
 
-  const MyWidget({super.key, required this.text});
-
-  showTextDialog(BuildContext context) {
-    return showDialog(
-      context: context,
-      builder: (_) => MyDialog(
-        text: text,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: const Text('Show modal'),
-      onPressed: () => showTextDialog(context),
-    );
-  }
-}
-
-class MyDialog extends StatelessWidget {
-  final String text;
-
-  const MyDialog({super.key, required this.text});
+  const DialogWidget({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +41,18 @@ class MyAlertDialog extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                  onPressed: viewModel.decreaseNights,
-                  icon: Icon(Icons.expand_more)),
+                onPressed: viewModel.decreaseNights,
+                icon: const Icon(
+                  Icons.expand_more,
+                ),
+              ),
               Text("${viewModel.nightsNumber} Nights"),
               IconButton(
-                  onPressed: viewModel.increaseNights,
-                  icon: Icon(Icons.expand_less)),
+                onPressed: viewModel.increaseNights,
+                icon: const Icon(
+                  Icons.expand_less,
+                ),
+              ),
             ],
           ),
         ],
@@ -81,8 +64,6 @@ class MyAlertDialog extends StatelessWidget {
           ),
           child: const Text('Save'),
           onPressed: () {
-            //Save
-
             Navigator.of(context).pop();
           },
         ),
