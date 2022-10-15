@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pet_service/data/network/api/user/services_api.dart';
+import 'package:pet_service/data/network/api/service/services_api.dart';
 import 'package:pet_service/data/network/dio_client.dart';
 import 'package:pet_service/data/repository/service_repository.dart';
 import 'package:pet_service/ui/view_models/home_view_model.dart';
