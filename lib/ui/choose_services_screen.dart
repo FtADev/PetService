@@ -44,8 +44,11 @@ class ServiceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(mainAxisSize: MainAxisSize.min, children: [
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min, children: [
         const Text(
           "Please select your service:",
           style: TextStyle(
@@ -54,7 +57,7 @@ class ServiceWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: 16,
+          height: 24,
         ),
         CheckBox(
           title: "Grooming",
@@ -64,7 +67,7 @@ class ServiceWidget extends StatelessWidget {
           onChange: viewModel.changeGrooming,
         ),
         const SizedBox(
-          height: 16,
+          height: 24,
         ),
         CheckBox(
           title: "Reserving Hotel",
@@ -72,6 +75,9 @@ class ServiceWidget extends StatelessWidget {
           containerBorderColor: blue_border,
           isSelected: viewModel.isReservingHotel,
           onChange: viewModel.changeReservingHotel,
+        ),
+        const SizedBox(
+          height: 24,
         ),
         viewModel.isReservingHotel
             ? MyWidget(
