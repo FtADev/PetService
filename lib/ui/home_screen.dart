@@ -44,7 +44,14 @@ class HomeScreen extends StatelessWidget {
                 height: 8,
               ),
               ElevatedButton(
-                child: const Text("Calculate Cost"),
+                child: viewModel.isLoading
+                    ? Container(
+                        margin: const EdgeInsets.all(5),
+                        child: const CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Text("Calculate Cost"),
                 onPressed: () async {
                   CalculateRequestModel requestModel = CalculateRequestModel(
                     cat: Animal(

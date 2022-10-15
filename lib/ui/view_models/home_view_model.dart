@@ -13,20 +13,32 @@ class HomeViewModel extends ChangeNotifier {
 
   int get cost => _cost;
 
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
   set cost(int value) {
     if (value != _cost) {
       _cost = value;
       notifyListeners();
     }
-    print(_cost);
+  }
+
+  set isLoading(bool value) {
+    if (value != _isLoading) {
+      _isLoading = value;
+      notifyListeners();
+    }
   }
 
   static HomeViewModel of(BuildContext context) =>
       Provider.of<HomeViewModel>(context, listen: false);
 
   Future calculateRequest(CalculateRequestModel req) async {
+    isLoading = true;
     CalculateResultModel? res =
         await serviceRepository.calculateCostRequest(req);
     (res.totalPrice != null) ? cost = res.totalPrice! : cost = 0;
+    isLoading = false;
   }
 }
