@@ -28,6 +28,9 @@ class CatViewModel extends HomeViewModel {
 
     if (value != _isReservingHotel) {
       _isReservingHotel = value;
+      if(!_isReservingHotel) {
+        _nightsNumber = 0;
+      }
       notifyListeners();
     }
     print(_isReservingHotel);
