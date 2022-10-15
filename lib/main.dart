@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/cat_view_model.dart';
-import 'package:pet_service/dog_view_model.dart';
+import 'package:pet_service/ui/view_models/cat_view_model.dart';
+import 'package:pet_service/ui/view_models/dog_view_model.dart';
 import 'package:pet_service/ui/home_screen.dart';
+import 'package:pet_service/ui/view_models/home_view_model.dart';
 import 'package:provider/provider.dart';
-
-import 'home_view_model.dart';
 
 void main() {
   runApp(const MyApp());

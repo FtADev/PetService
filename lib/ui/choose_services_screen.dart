@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/cat_view_model.dart';
-import 'package:pet_service/dog_view_model.dart';
+import 'package:pet_service/ui/view_models/cat_view_model.dart';
+import 'package:pet_service/ui/view_models/dog_view_model.dart';
 import 'package:pet_service/ui/components/check_box.dart';
 import 'package:pet_service/ui/my_colors.dart';
 import 'package:pet_service/ui/nights_number_dialog.dart';
 import 'package:provider/provider.dart';
+
 
 class ChooseServices extends StatelessWidget {
   final String text;

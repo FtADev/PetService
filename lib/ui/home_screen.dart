@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/cat_view_model.dart';
-import 'package:pet_service/dog_view_model.dart';
-import 'package:pet_service/home_view_model.dart';
+import 'package:pet_service/ui/view_models/cat_view_model.dart';
+import 'package:pet_service/ui/view_models/dog_view_model.dart';
+import 'package:pet_service/ui/view_models/home_view_model.dart';
 import 'package:pet_service/model/animal_model.dart';
 import 'package:pet_service/model/calculate_request_model.dart';
 import 'package:pet_service/model/hotel_model.dart';

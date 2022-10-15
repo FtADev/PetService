@@ -27,7 +27,7 @@ class AnimalCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Text(
                 detail,
                 style: const TextStyle(

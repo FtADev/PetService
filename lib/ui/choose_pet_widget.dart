@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/cat_view_model.dart';
-import 'package:pet_service/dog_view_model.dart';
+import 'package:pet_service/ui/components/animal_card.dart';
+import 'package:pet_service/ui/view_models/cat_view_model.dart';
+import 'package:pet_service/ui/view_models/dog_view_model.dart';
 import 'package:pet_service/ui/choose_services_screen.dart';
 import 'package:provider/provider.dart';
-
-import 'components/animal_card.dart';
 
 class ChoosePetWidget extends StatelessWidget {
   const ChoosePetWidget({Key? key}) : super(key: key);
