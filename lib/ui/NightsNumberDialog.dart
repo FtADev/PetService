@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/home_view_model.dart';
 import 'package:provider/provider.dart';
 
 import '../cat_view_model.dart';
@@ -35,8 +34,6 @@ class MyDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<HomeViewModel>();
-
     return text == "Cat"
         ? Consumer<CatViewModel>(builder: (context, viewModel, child) {
             return MyAlertDialog(

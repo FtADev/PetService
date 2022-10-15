@@ -20,7 +20,10 @@ class ChooseServices extends StatelessWidget {
               appBar: AppBar(
                 title: Text("$text Service"),
               ),
-              body: ServiceWidget(viewModel: viewModel, text: "Cat",),
+              body: ServiceWidget(
+                viewModel: viewModel,
+                text: "Cat",
+              ),
             );
           })
         : Consumer<DogViewModel>(builder: (context, viewModel, child) {
@@ -41,7 +44,8 @@ class ServiceWidget extends StatelessWidget {
   final viewModel;
   final String text;
 
-  const ServiceWidget({Key? key, required this.viewModel, required this.text}) : super(key: key);
+  const ServiceWidget({Key? key, required this.viewModel, required this.text})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
