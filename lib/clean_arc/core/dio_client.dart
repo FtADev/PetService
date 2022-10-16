@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:pet_service/data/network/api/constant/endpoints.dart';
+import 'package:pet_service/clean_arc/core/util/endpoints.dart';
 
 class DioClient {
   // dio instance
