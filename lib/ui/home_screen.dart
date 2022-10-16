@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/data/model/animal_model.dart';
-import 'package:pet_service/data/model/calculate_request_model.dart';
-import 'package:pet_service/data/model/hotel_model.dart';
-import 'package:pet_service/data/model/services_model.dart';
 import 'package:pet_service/ui/choose_pet_widget.dart';
 import 'package:pet_service/ui/view_models/cat_view_model.dart';
 import 'package:pet_service/ui/view_models/dog_view_model.dart';
@@ -53,25 +49,12 @@ class HomeScreen extends StatelessWidget {
                       )
                     : const Text("Calculate Cost"),
                 onPressed: () async {
-                  CalculateRequestModel requestModel = CalculateRequestModel(
-                    cat: Animal(
-                      services: Services(
-                        grooming: catModel.isGrooming,
-                        hotel: Hotel(
-                          nights: catModel.nightsNumber,
-                        ),
-                      ),
-                    ),
-                    dog: Animal(
-                      services: Services(
-                        grooming: dogModel.isGrooming,
-                        hotel: Hotel(
-                          nights: dogModel.nightsNumber,
-                        ),
-                      ),
-                    ),
+                  await viewModel.calculateRequest(
+                    dogNights: dogModel.nightsNumber,
+                    isDogGrooming: dogModel.isGrooming,
+                    catNights: catModel.nightsNumber,
+                    isCatGrooming: catModel.isGrooming,
                   );
-                  await viewModel.calculateRequest(requestModel);
                 },
               )
             ],

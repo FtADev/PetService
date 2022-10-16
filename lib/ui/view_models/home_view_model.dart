@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/data/model/calculate_request_model.dart';
-import 'package:pet_service/data/model/calculate_result_model.dart';
-import 'package:pet_service/data/repository/service_repository.dart';
 import 'package:provider/provider.dart';
+
+import '../../clean_arc/features/service_cost/data/models/calculate_request_model.dart';
+import '../../clean_arc/features/service_cost/data/models/calculate_result_model.dart';
+import '../../clean_arc/features/service_cost/domain/repositories/service_repository.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final ServiceRepository serviceRepository;
@@ -34,10 +35,19 @@ class HomeViewModel extends ChangeNotifier {
   static HomeViewModel of(BuildContext context) =>
       Provider.of<HomeViewModel>(context, listen: false);
 
-  Future calculateRequest(CalculateRequestModel req) async {
+  Future calculateRequest({
+    required bool isCatGrooming,
+    required int catNights,
+    required bool isDogGrooming,
+    required int dogNights,
+  }) async {
     isLoading = true;
-    CalculateResultModel? res =
-        await serviceRepository.calculateCostRequest(req);
+    var res =
+        await serviceRepository.getCalculatedConst(
+          dogNights: dogNights,
+          isDogGrooming: isDogGrooming,
+          catNights: catNights,
+          isCatGrooming: isCatGrooming,);
     (res.totalPrice != null) ? cost = res.totalPrice! : cost = 0;
     isLoading = false;
   }
