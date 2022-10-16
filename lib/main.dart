@@ -7,8 +7,9 @@ import 'package:pet_service/ui/home_screen.dart';
 import 'package:pet_service/ui/view_models/home_view_model.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  setup();
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setup();
   runApp(MyApp());
 }
 
