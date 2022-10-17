@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pet_service/clean_arc/features/service_cost/domain/usecases/get_calculated_cost.dart';
 import 'package:pet_service/di/injection_container.dart';
-import 'package:pet_service/ui/view_models/cat_view_model.dart';
-import 'package:pet_service/ui/view_models/dog_view_model.dart';
-import 'package:pet_service/ui/view_models/home_view_model.dart';
+import 'package:pet_service/clean_arc/features/service_cost/presentation/home/provider/home_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'clean_arc/features/service_cost/presentation/animal/provider/cat_view_model.dart';
+import 'clean_arc/features/service_cost/presentation/animal/provider/dog_view_model.dart';
 import 'clean_arc/features/service_cost/presentation/home/pages/home_screen.dart';
 import 'di/injection_container.dart' as di;
 

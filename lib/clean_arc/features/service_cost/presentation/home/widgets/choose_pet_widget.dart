@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/ui/view_models/cat_view_model.dart';
-import 'package:pet_service/ui/view_models/dog_view_model.dart';
-import 'package:pet_service/ui/choose_services_screen.dart';
+import 'package:pet_service/clean_arc/features/service_cost/presentation/animal/pages/choose_services_screen.dart';
 import 'package:provider/provider.dart';
 
-import '../clean_arc/features/service_cost/presentation/animal/widgets/animal_card.dart';
+import '../../animal/provider/cat_view_model.dart';
+import '../../animal/provider/dog_view_model.dart';
+import '../../animal/widgets/animal_card.dart';
 
 class ChoosePetWidget extends StatelessWidget {
   const ChoosePetWidget({Key? key}) : super(key: key);

@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../clean_arc/core/error/failures.dart';
-import '../../clean_arc/features/service_cost/domain/entities/cost.dart';
-import '../../clean_arc/features/service_cost/domain/usecases/get_calculated_cost.dart';
+import '../../../../../core/error/failures.dart';
+import '../../../domain/entities/cost.dart';
+import '../../../domain/usecases/get_calculated_cost.dart';
 
 const String SERVER_FAILURE_MESSAGE = 'Server Failure';
 const String CACHE_FAILURE_MESSAGE = 'Cache Failure';

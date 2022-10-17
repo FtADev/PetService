@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/ui/view_models/cat_view_model.dart';
-import 'package:pet_service/ui/view_models/dog_view_model.dart';
 import 'package:provider/provider.dart';
+
+import '../provider/cat_view_model.dart';
+import '../provider/dog_view_model.dart';
 
 class DialogWidget extends StatelessWidget {
   final String text;

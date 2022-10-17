@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/ui/choose_pet_widget.dart';
-import 'package:pet_service/ui/view_models/cat_view_model.dart';
-import 'package:pet_service/ui/view_models/dog_view_model.dart';
-import 'package:pet_service/ui/view_models/home_view_model.dart';
+import 'package:pet_service/clean_arc/features/service_cost/presentation/home/widgets/choose_pet_widget.dart';
+import 'package:pet_service/clean_arc/features/service_cost/presentation/home/provider/home_view_model.dart';
 import 'package:provider/provider.dart';
+
+import '../../animal/provider/cat_view_model.dart';
+import '../../animal/provider/dog_view_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
