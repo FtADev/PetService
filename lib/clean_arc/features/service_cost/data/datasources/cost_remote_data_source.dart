@@ -49,6 +49,7 @@ class CostRemoteDataSourceImpl implements CostRemoteDataSource {
       ),
     );
 
+    try {
     final Response response = await dioClient.post(
       Endpoints.baseUrl,
       data: reqModel.toJson(),
@@ -56,6 +57,9 @@ class CostRemoteDataSourceImpl implements CostRemoteDataSource {
     if (response.statusCode == 200) {
       return CostModel.fromJson(json.decode(response.data));
     } else {
+      throw ServerException();
+    } } catch(e) {
+      print(e);
       throw ServerException();
     }
   }
