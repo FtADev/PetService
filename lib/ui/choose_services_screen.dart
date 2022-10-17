@@ -18,27 +18,23 @@ class ChooseServices extends StatelessWidget {
         title: Text("$text Service"),
       ),
       body: text == "Cat"
-          ? Consumer<CatViewModel>(builder: (context, viewModel, child) {
-              return ServiceWidget(
-                viewModel: viewModel,
+          ? ServiceWidget(
+                // viewModel: viewModel,
                 text: "Cat",
-              );
-            })
-          : Consumer<DogViewModel>(builder: (context, viewModel, child) {
-              return ServiceWidget(
-                viewModel: viewModel,
+              )
+          : ServiceWidget(
+                // viewModel: viewModel,
                 text: "Dog",
-              );
-            }),
+              ),
     );
   }
 }
 
 class ServiceWidget extends StatelessWidget {
-  final viewModel;
+  // final viewModel;
   final String text;
 
-  const ServiceWidget({Key? key, required this.viewModel, required this.text})
+  const ServiceWidget({Key? key, required this.text})
       : super(key: key);
 
   showTextDialog(BuildContext context) {
@@ -68,40 +64,40 @@ class ServiceWidget extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-            CheckBox(
-              title: "Grooming",
-              containerColor: const Color(0xFF78DDD8),
-              containerBorderColor: const Color(0xFF3AC1B0),
-              isSelected: viewModel.isGrooming,
-              onChange: viewModel.changeGrooming,
-            ),
+            // CheckBox(
+            //   title: "Grooming",
+            //   containerColor: const Color(0xFF78DDD8),
+            //   containerBorderColor: const Color(0xFF3AC1B0),
+            //   isSelected: viewModel.isGrooming,
+            //   onChange: viewModel.changeGrooming,
+            // ),
             const SizedBox(
               height: 24,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CheckBox(
-                title: "Reserving Hotel",
-                containerColor: const Color(0xFF78DDD8),
-                containerBorderColor: const Color(0xFF3AC1B0),
-                isSelected: viewModel.isReservingHotel,
-                onChange: viewModel.changeReservingHotel,
-              ),
-                viewModel.isReservingHotel
-                    ? GestureDetector(
-                      child: Text(
-                        "${viewModel.nightsNumber} Nights",
-                        style: const TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                      ),
-                      onTap: () => showTextDialog(context),
-                    )
-                    : Container()
-      ]
-            ),
+      //       Row(
+      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //         children: [
+      //           CheckBox(
+      //           title: "Reserving Hotel",
+      //           containerColor: const Color(0xFF78DDD8),
+      //           containerBorderColor: const Color(0xFF3AC1B0),
+      //           isSelected: viewModel.isReservingHotel,
+      //           onChange: viewModel.changeReservingHotel,
+      //         ),
+      //           viewModel.isReservingHotel
+      //               ? GestureDetector(
+      //                 child: Text(
+      //                   "${viewModel.nightsNumber} Nights",
+      //                   style: const TextStyle(
+      //                     color: Colors.grey,
+      //                     fontSize: 14,
+      //                   ),
+      //                 ),
+      //                 onTap: () => showTextDialog(context),
+      //               )
+      //               : Container()
+      // ]
+      //       ),
             const SizedBox(
               height: 16,
             ),

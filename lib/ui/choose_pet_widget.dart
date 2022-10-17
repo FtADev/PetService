@@ -23,33 +23,29 @@ class ChoosePetWidget extends StatelessWidget {
         const SizedBox(
           height: 50,
         ),
-        Consumer<CatViewModel>(
-          builder: (context, catModel, child) => AnimalCard(
+        AnimalCard(
             text: "Cat",
             detail:
-                "${catModel.nightsNumber} Nights ${(!catModel.isGrooming) ? "without" : "with"} Grooming",
+                "${0} Nights ${(false) ? "without" : "with"} Grooming",
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const ChooseServices(text: "Cat"),
               ),
             ),
           ),
-        ),
         const SizedBox(
           width: 8,
         ),
-        Consumer<DogViewModel>(
-          builder: (context, dogModel, child) => AnimalCard(
+        AnimalCard(
             text: "Dog",
             detail:
-                "${dogModel.nightsNumber} Nights ${(!dogModel.isGrooming) ? "without" : "with"} Grooming",
+                "${0} Nights ${(false) ? "without" : "with"} Grooming",
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const ChooseServices(text: "Dog"),
               ),
             ),
           ),
-        ),
       ]),
     );
   }
