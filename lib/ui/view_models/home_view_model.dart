@@ -6,9 +6,9 @@ import '../../clean_arc/features/service_cost/data/models/calculate_result_model
 import '../../clean_arc/features/service_cost/domain/repositories/service_repository.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  final ServiceRepository serviceRepository;
+  // final ServiceRepository serviceRepository;
 
-  HomeViewModel(this.serviceRepository);
+  // HomeViewModel(this.serviceRepository);
 
   int _cost = 0;
 
@@ -41,14 +41,14 @@ class HomeViewModel extends ChangeNotifier {
     required bool isDogGrooming,
     required int dogNights,
   }) async {
-    isLoading = true;
-    var res =
-        await serviceRepository.getCalculatedConst(
-          dogNights: dogNights,
-          isDogGrooming: isDogGrooming,
-          catNights: catNights,
-          isCatGrooming: isCatGrooming,);
-    (res.totalPrice != null) ? cost = res.totalPrice! : cost = 0;
-    isLoading = false;
+    // isLoading = true;
+    // var res =
+    //     await serviceRepository.getCalculatedConst(
+    //       dogNights: dogNights,
+    //       isDogGrooming: isDogGrooming,
+    //       catNights: catNights,
+    //       isCatGrooming: isCatGrooming,);
+    // (res.totalPrice != null) ? cost = res.totalPrice! : cost = 0;
+    // isLoading = false;
   }
 }
