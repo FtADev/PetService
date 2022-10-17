@@ -1,16 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:pet_service/clean_arc/features/service_cost/data/datasources/cost_remote_data_source.dart';
-import 'package:pet_service/clean_arc/features/service_cost/data/repositories/service_repository_impl.dart';
-import 'package:pet_service/clean_arc/features/service_cost/domain/repositories/service_repository.dart';
-import 'package:pet_service/clean_arc/features/service_cost/domain/usecases/get_calculated_cost.dart';
-import 'package:pet_service/clean_arc/features/service_cost/presentation/home/provider/home_view_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../clean_arc/core/dio_client.dart';
-import '../clean_arc/core/network/network_info.dart';
-import '../clean_arc/features/service_cost/presentation/home/bloc/home_bloc.dart';
+import '../core/network/dio_client.dart';
+import '../core/network/network_info.dart';
+import '../service_cost/data/datasources/cost_remote_data_source.dart';
+import '../service_cost/data/repositories/service_repository_impl.dart';
+import '../service_cost/domain/repositories/service_repository.dart';
+import '../service_cost/domain/usecases/get_calculated_cost.dart';
+import '../service_cost/presentation/home/provider/home_view_model.dart';
 
 
 final getIt = GetIt.instance;
@@ -18,11 +17,11 @@ final getIt = GetIt.instance;
 Future<void> init() async {
 
   // Bloc
-  getIt.registerFactory(
-    () => HomeBloc(
-      usecase: getIt(),
-    ),
-  );
+  // getIt.registerFactory(
+  //   () => HomeBloc(
+  //     usecase: getIt(),
+  //   ),
+  // );
 
   getIt.registerFactory(
         () => HomeViewModel(
