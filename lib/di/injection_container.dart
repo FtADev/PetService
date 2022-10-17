@@ -15,20 +15,7 @@ import '../clean_arc/core/network/network_info.dart';
 final getIt = GetIt.instance;
 
 Future<void> init() async {
-  // final sharedPreferences = await SharedPreferences.getInstance();
-  //
-  // getIt.registerSingleton(Dio());
-  // getIt.registerSingleton(DioClient(getIt<Dio>()));
-  // getIt.registerSingleton(ServicesApi(dioClient: getIt<DioClient>()));
-  // getIt.registerSingleton(InternetConnectionChecker());
-  // getIt.registerSingleton(NetworkInfo(getIt<InternetConnectionChecker>()));
-  // getIt.registerSingleton(LocalDataSource(sharedPreferences: sharedPreferences));
-  // getIt.registerSingleton(ServiceRepository());
-  // getIt.registerSingleton(GetCalculatedCost(getIt.get<ServiceRepository>()));
-  // getIt.registerSingleton(HomeBloc(cost: getIt.get<GetCalculatedCost>()));
 
-
-  //! Features - Number Trivia
   // Bloc
   getIt.registerFactory(
     () => HomeBloc(
@@ -53,18 +40,14 @@ Future<void> init() async {
     () => CostRemoteDataSourceImpl(dioClient: getIt()),
   );
 
-  // getIt.registerLazySingleton<NumberTriviaLocalDataSource>(
-  //   () => NumberTriviaLocalDataSourceImpl(sharedPreferences: getIt()),
-  // );
-
   //! Core
-  // getIt.registerLazySingleton(() => InputConverter());
   getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: getIt()));
 
   //! External
+  getIt.registerSingleton(Dio());
+  getIt.registerSingleton(DioClient(dio: getIt<Dio>()));
+  getIt.registerLazySingleton(() => InternetConnectionChecker());
+
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton(() => sharedPreferences);
-  getIt.registerLazySingleton(() => Dio(getIt()));
-  getIt.registerLazySingleton(() => DioClient(getIt()));
-  getIt.registerLazySingleton(() => InternetConnectionChecker());
 }
