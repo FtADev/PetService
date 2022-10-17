@@ -5,11 +5,11 @@ import 'package:pet_service/clean_arc/features/service_cost/data/datasources/cos
 import 'package:pet_service/clean_arc/features/service_cost/data/repositories/service_repository_impl.dart';
 import 'package:pet_service/clean_arc/features/service_cost/domain/repositories/service_repository.dart';
 import 'package:pet_service/clean_arc/features/service_cost/domain/usecases/get_calculated_cost.dart';
-import 'package:pet_service/clean_arc/features/service_cost/presentation/bloc/home/home_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../clean_arc/core/dio_client.dart';
 import '../clean_arc/core/network/network_info.dart';
+import '../clean_arc/features/service_cost/presentation/home/bloc/home_bloc.dart';
 
 
 final getIt = GetIt.instance;

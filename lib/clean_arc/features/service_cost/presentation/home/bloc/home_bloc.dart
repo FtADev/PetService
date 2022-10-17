@@ -5,10 +5,10 @@ import 'package:dartz/dartz.dart';
 import 'package:meta/meta.dart';
 import 'package:pet_service/clean_arc/features/service_cost/domain/entities/cost.dart';
 import 'package:pet_service/clean_arc/features/service_cost/domain/usecases/get_calculated_cost.dart';
-import 'package:pet_service/clean_arc/features/service_cost/presentation/bloc/home/home_event.dart';
-import 'package:pet_service/clean_arc/features/service_cost/presentation/bloc/home/home_state.dart';
 
 import '../../../../../core/error/failures.dart';
+import 'home_event.dart';
+import 'home_state.dart';
 
 const String SERVER_FAILURE_MESSAGE = 'Server Failure';
 const String CACHE_FAILURE_MESSAGE = 'Cache Failure';

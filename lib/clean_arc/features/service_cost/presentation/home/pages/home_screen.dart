@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pet_service/clean_arc/features/service_cost/presentation/bloc/home/home_bloc.dart';
-import 'package:pet_service/clean_arc/features/service_cost/presentation/bloc/home/home_event.dart';
-import 'package:pet_service/clean_arc/features/service_cost/presentation/bloc/home/home_state.dart';
+import 'package:pet_service/di/injection_container.dart';
 import 'package:pet_service/ui/choose_pet_widget.dart';
 
-import '../di/injection_container.dart';
+import '../bloc/home_bloc.dart';
+import '../bloc/home_event.dart';
+import '../bloc/home_state.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
