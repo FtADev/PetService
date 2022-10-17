@@ -32,12 +32,12 @@ Future<void> init() async {
   // Bloc
   getIt.registerFactory(
     () => HomeBloc(
-      cost: getIt(),
+      usecase: getIt(),
     ),
   );
 
   // Use cases
-  getIt.registerLazySingleton(() => GetCalculatedCost(getIt()));
+  getIt.registerLazySingleton(() => GetCalculatedCostUseCase(repository: getIt()));
 
   // Repository
   getIt.registerLazySingleton<ServiceRepository>(
@@ -59,7 +59,7 @@ Future<void> init() async {
 
   //! Core
   // getIt.registerLazySingleton(() => InputConverter());
-  getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(getIt()));
+  getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: getIt()));
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();

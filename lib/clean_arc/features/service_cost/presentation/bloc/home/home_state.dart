@@ -8,23 +8,23 @@ abstract class HomeState extends Equatable {
   List<Object> get props => [];
 }
 
-class Empty extends HomeState {}
+class InitialState extends HomeState {}
 
-class Loading extends HomeState {}
+class LoadingState extends HomeState {}
 
-class Loaded extends HomeState {
+class LoadedState extends HomeState {
   final Cost cost;
 
-  Loaded({required this.cost});
+  LoadedState({required this.cost});
 
   @override
   List<Object> get props => [cost];
 }
 
-class Error extends HomeState {
+class ErrorState extends HomeState {
   final String message;
 
-  Error({required this.message});
+  ErrorState({required this.message});
 
   @override
   List<Object> get props => [message];

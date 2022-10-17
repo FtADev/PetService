@@ -16,47 +16,30 @@ const String INVALID_INPUT_FAILURE_MESSAGE =
     'Invalid Input - The number must be a positive integer or zero.';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final GetCalculatedCost getCalculatedCost;
+  final GetCalculatedCostUseCase getCalculatedCost;
 
   HomeBloc({
-    required GetCalculatedCost cost,
-  })  : assert(cost != null),
-        getCalculatedCost = cost,
-        super(Empty());
+    required GetCalculatedCostUseCase usecase,
+  })  : assert(usecase != null),
+        getCalculatedCost = usecase,
+        super(InitialState()) {
 
-  @override
-  HomeState get initialState => Empty();
+    on<GetCalculatedCostEvent>(_onCalculate);
 
-  @override
-  Stream<HomeState> mapEventToState(
-    HomeEvent event,
-  ) async* {
-    if (event is CalculateEvent) {
-      // yield* event.numberString.fold(
-      //   (failure) async* {
-      //     yield Error(message: INVALID_INPUT_FAILURE_MESSAGE);
-      //   },
-      //   (integer) async* {
-      yield Loading();
-      final failureOrCost = await getCalculatedCost(Params(
-        isCatGrooming: event.isCatGrooming,
-        catNights: event.catNights,
-        isDogGrooming: event.isDogGrooming,
-        dogNights: event.dogNights,
-      ));
-      yield* _eitherLoadedOrErrorState(failureOrCost);
-      // },
-      // );
-    }
   }
 
-  Stream<HomeState> _eitherLoadedOrErrorState(
-    Either<Failure, Cost> failureOrCost,
-  ) async* {
-    yield failureOrCost.fold(
-      (failure) => Error(message: _mapFailureToMessage(failure)),
-      (cost) => Loaded(cost: cost),
-    );
+  _onCalculate(GetCalculatedCostEvent event, Emitter<HomeState> emit) async {
+    emit(LoadingState());
+    var result = await getCalculatedCost(Params(
+      isCatGrooming: event.isCatGrooming,
+      catNights: event.catNights,
+      isDogGrooming: event.isDogGrooming,
+      dogNights: event.dogNights,
+    ));
+    result.fold(
+            (failure) => emit(ErrorState(message: _mapFailureToMessage(failure))),
+            (cost) => { emit(LoadedState(cost: cost)),
+        });
   }
 
   String _mapFailureToMessage(Failure failure) {

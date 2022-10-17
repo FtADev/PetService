@@ -6,10 +6,10 @@ import 'package:pet_service/clean_arc/features/service_cost/domain/repositories/
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
 
-class GetCalculatedCost implements UseCase<Cost, Params> {
+class GetCalculatedCostUseCase implements UseCase<Cost, Params> {
   final ServiceRepository repository;
 
-  GetCalculatedCost(this.repository);
+  GetCalculatedCostUseCase({required this.repository});
 
   @override
   Future<Either<Failure, Cost>> call(Params params) async {

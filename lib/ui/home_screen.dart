@@ -33,13 +33,21 @@ class HomeScreen extends StatelessWidget {
             ),
             BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
-                if (state is Loaded) {
+                if (state is LoadedState) {
                   return Text(
                     "\$ ${state.cost}",
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
+                    ),
+                  );
+                } else if (state is ErrorState) { //TODO(Show Error)
+                  return Text(
+                    state.message,
+                    style: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
                     ),
                   );
                 }
@@ -51,30 +59,26 @@ class HomeScreen extends StatelessWidget {
             ),
             BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
-                if (state is Loading) {
-                  return Container(
-                    margin: const EdgeInsets.all(5),
-                    child: const CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  );
-                  // } else if (state is Error) {
-                  //   return _showToast(context);
-                } else {
-                  return ElevatedButton(
-                    child: const Text("Calculated Cost"),
-                    onPressed: () {
-                      BlocProvider.of<HomeBloc>(context).add(
-                        CalculateEvent(
-                          dogNights: 0,
-                          isDogGrooming: false,
-                          catNights: 0,
-                          isCatGrooming: false,
-                        ),
-                      );
-                    },
-                  );
-                }
+                return ElevatedButton(
+                  child: state is LoadingState
+                      ? Container(
+                          margin: const EdgeInsets.all(5),
+                          child: const CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Text("Calculated Cost"),
+                  onPressed: () {
+                    BlocProvider.of<HomeBloc>(context).add(
+                      GetCalculatedCostEvent(
+                        dogNights: 0,
+                        isDogGrooming: false,
+                        catNights: 0,
+                        isCatGrooming: false,
+                      ),
+                    );
+                  },
+                );
               },
             )
           ],

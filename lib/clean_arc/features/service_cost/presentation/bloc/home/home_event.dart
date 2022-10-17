@@ -7,13 +7,13 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class CalculateEvent extends HomeEvent {
+class GetCalculatedCostEvent extends HomeEvent {
   final bool isCatGrooming;
   final int catNights;
   final bool isDogGrooming;
   final int dogNights;
 
-  CalculateEvent({
+  GetCalculatedCostEvent({
     required this.isCatGrooming,
     required this.catNights,
     required this.isDogGrooming,
