@@ -16,13 +16,7 @@ final getIt = GetIt.instance;
 
 Future<void> init() async {
 
-  // Bloc
-  // getIt.registerFactory(
-  //   () => HomeBloc(
-  //     usecase: getIt(),
-  //   ),
-  // );
-
+  // Provider
   getIt.registerFactory(
         () => HomeViewModel(
       getCalculatedCostUseCase: getIt(),
