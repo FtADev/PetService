@@ -24,5 +24,3 @@ class GetCalculatedCostEvent extends HomeEvent {
   List<Object> get props =>
       [isCatGrooming, catNights, isDogGrooming, dogNights];
 }
-
-class GetTriviaForRandomNumber extends HomeEvent {}
