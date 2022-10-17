@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/ui/components/animal_card.dart';
 import 'package:pet_service/ui/view_models/cat_view_model.dart';
 import 'package:pet_service/ui/view_models/dog_view_model.dart';
 import 'package:pet_service/ui/choose_services_screen.dart';
 import 'package:provider/provider.dart';
+
+import '../clean_arc/features/service_cost/presentation/animal/widgets/animal_card.dart';
 
 class ChoosePetWidget extends StatelessWidget {
   const ChoosePetWidget({Key? key}) : super(key: key);
@@ -23,29 +24,33 @@ class ChoosePetWidget extends StatelessWidget {
         const SizedBox(
           height: 50,
         ),
-        AnimalCard(
+        Consumer<CatViewModel>(
+          builder: (context, catModel, child) => AnimalCard(
             text: "Cat",
             detail:
-                "${0} Nights ${(false) ? "without" : "with"} Grooming",
+            "${catModel.nightsNumber} Nights ${(!catModel.isGrooming) ? "without" : "with"} Grooming",
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const ChooseServices(text: "Cat"),
               ),
             ),
           ),
+        ),
         const SizedBox(
           width: 8,
         ),
-        AnimalCard(
+        Consumer<DogViewModel>(
+          builder: (context, dogModel, child) => AnimalCard(
             text: "Dog",
             detail:
-                "${0} Nights ${(false) ? "without" : "with"} Grooming",
+            "${dogModel.nightsNumber} Nights ${(!dogModel.isGrooming) ? "without" : "with"} Grooming",
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const ChooseServices(text: "Dog"),
               ),
             ),
           ),
+        ),
       ]),
     );
   }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pet_service/ui/view_models/cat_view_model.dart';
 import 'package:pet_service/ui/view_models/dog_view_model.dart';
-import 'package:pet_service/ui/components/check_box.dart';
 import 'package:pet_service/ui/nights_number_dialog.dart';
 import 'package:provider/provider.dart';
+
+import '../clean_arc/features/service_cost/presentation/animal/widgets/check_box.dart';
 
 
 class ChooseServices extends StatelessWidget {
@@ -18,23 +19,27 @@ class ChooseServices extends StatelessWidget {
         title: Text("$text Service"),
       ),
       body: text == "Cat"
-          ? ServiceWidget(
-                // viewModel: viewModel,
-                text: "Cat",
-              )
-          : ServiceWidget(
-                // viewModel: viewModel,
-                text: "Dog",
-              ),
+          ? Consumer<CatViewModel>(builder: (context, viewModel, child) {
+        return ServiceWidget(
+          viewModel: viewModel,
+          text: "Cat",
+        );
+      })
+          : Consumer<DogViewModel>(builder: (context, viewModel, child) {
+        return ServiceWidget(
+          viewModel: viewModel,
+          text: "Dog",
+        );
+      }),
     );
   }
 }
 
 class ServiceWidget extends StatelessWidget {
-  // final viewModel;
+  final viewModel;
   final String text;
 
-  const ServiceWidget({Key? key, required this.text})
+  const ServiceWidget({Key? key, required this.viewModel, required this.text})
       : super(key: key);
 
   showTextDialog(BuildContext context) {
@@ -64,40 +69,40 @@ class ServiceWidget extends StatelessWidget {
             const SizedBox(
               height: 24,
             ),
-            // CheckBox(
-            //   title: "Grooming",
-            //   containerColor: const Color(0xFF78DDD8),
-            //   containerBorderColor: const Color(0xFF3AC1B0),
-            //   isSelected: viewModel.isGrooming,
-            //   onChange: viewModel.changeGrooming,
-            // ),
+            CheckBox(
+              title: "Grooming",
+              containerColor: const Color(0xFF78DDD8),
+              containerBorderColor: const Color(0xFF3AC1B0),
+              isSelected: viewModel.isGrooming,
+              onChange: viewModel.changeGrooming,
+            ),
             const SizedBox(
               height: 24,
             ),
-      //       Row(
-      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           CheckBox(
-      //           title: "Reserving Hotel",
-      //           containerColor: const Color(0xFF78DDD8),
-      //           containerBorderColor: const Color(0xFF3AC1B0),
-      //           isSelected: viewModel.isReservingHotel,
-      //           onChange: viewModel.changeReservingHotel,
-      //         ),
-      //           viewModel.isReservingHotel
-      //               ? GestureDetector(
-      //                 child: Text(
-      //                   "${viewModel.nightsNumber} Nights",
-      //                   style: const TextStyle(
-      //                     color: Colors.grey,
-      //                     fontSize: 14,
-      //                   ),
-      //                 ),
-      //                 onTap: () => showTextDialog(context),
-      //               )
-      //               : Container()
-      // ]
-      //       ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CheckBox(
+                    title: "Reserving Hotel",
+                    containerColor: const Color(0xFF78DDD8),
+                    containerBorderColor: const Color(0xFF3AC1B0),
+                    isSelected: viewModel.isReservingHotel,
+                    onChange: viewModel.changeReservingHotel,
+                  ),
+                  viewModel.isReservingHotel
+                      ? GestureDetector(
+                    child: Text(
+                      "${viewModel.nightsNumber} Nights",
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                      ),
+                    ),
+                    onTap: () => showTextDialog(context),
+                  )
+                      : Container()
+                ]
+            ),
             const SizedBox(
               height: 16,
             ),
