@@ -1,14 +1,18 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../clean_arc/features/service_cost/data/models/calculate_request_model.dart';
-import '../../clean_arc/features/service_cost/data/models/calculate_result_model.dart';
-import '../../clean_arc/features/service_cost/domain/repositories/service_repository.dart';
+import '../../clean_arc/core/error/failures.dart';
+import '../../clean_arc/features/service_cost/domain/entities/cost.dart';
+import '../../clean_arc/features/service_cost/domain/usecases/get_calculated_cost.dart';
+
+const String SERVER_FAILURE_MESSAGE = 'Server Failure';
+const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
 
 class HomeViewModel extends ChangeNotifier {
-  // final ServiceRepository serviceRepository;
+  final GetCalculatedCostUseCase getCalculatedCostUseCase;
 
-  // HomeViewModel(this.serviceRepository);
+  HomeViewModel({required this.getCalculatedCostUseCase});
 
   int _cost = 0;
 
@@ -17,6 +21,10 @@ class HomeViewModel extends ChangeNotifier {
   bool _isLoading = false;
 
   bool get isLoading => _isLoading;
+
+  String _errorMessage = "";
+
+  String get errorMessage => _errorMessage;
 
   set cost(int value) {
     if (value != _cost) {
@@ -32,6 +40,13 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
+  set errorMessage(String value) {
+    if (value != _errorMessage) {
+      _errorMessage = value;
+      notifyListeners();
+    }
+  }
+
   static HomeViewModel of(BuildContext context) =>
       Provider.of<HomeViewModel>(context, listen: false);
 
@@ -41,14 +56,28 @@ class HomeViewModel extends ChangeNotifier {
     required bool isDogGrooming,
     required int dogNights,
   }) async {
-    // isLoading = true;
-    // var res =
-    //     await serviceRepository.getCalculatedConst(
-    //       dogNights: dogNights,
-    //       isDogGrooming: isDogGrooming,
-    //       catNights: catNights,
-    //       isCatGrooming: isCatGrooming,);
-    // (res.totalPrice != null) ? cost = res.totalPrice! : cost = 0;
-    // isLoading = false;
+    isLoading = true;
+    Either<Failure, Cost> res = await getCalculatedCostUseCase(Params(
+      dogNights: dogNights,
+      isDogGrooming: isDogGrooming,
+      catNights: catNights,
+      isCatGrooming: isCatGrooming,
+    ));
+    res.fold(
+        (failure) => errorMessage = _mapFailureToMessage(failure),
+        (resCost) => resCost.totalPrice != null ? cost = resCost.totalPrice! : cost = 0);
+
+    isLoading = false;
+  }
+
+  String _mapFailureToMessage(Failure failure) {
+    switch (failure.runtimeType) {
+      case ServerFailure:
+        return SERVER_FAILURE_MESSAGE;
+      case CacheFailure:
+        return CACHE_FAILURE_MESSAGE;
+      default:
+        return 'Unexpected error';
+    }
   }
 }
