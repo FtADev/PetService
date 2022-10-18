@@ -77,7 +77,7 @@ class CostLocalDataSourceImpl implements CostDataSource {
       required int dogNights}) async {
     try {
       await Future.delayed(const Duration(seconds: 1));
-      return CostModel(totalPrice: 0);
+      return CostModel(totalPrice: -1);
     } catch (e) {
       throw CacheException();
     }
