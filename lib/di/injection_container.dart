@@ -39,7 +39,4 @@ Future<void> init() async {
   //! External
   getIt.registerSingleton(Dio());
   getIt.registerSingleton(DioClient(dio: getIt<Dio>()));
-
-  // final sharedPreferences = await SharedPreferences.getInstance();
-  // getIt.registerLazySingleton(() => sharedPreferences);
 }
