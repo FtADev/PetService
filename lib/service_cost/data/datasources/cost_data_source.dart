@@ -59,7 +59,7 @@ class CostRemoteDataSourceImpl implements CostDataSource {
           data: reqModel.toJson(),
         );
         if (response.statusCode == 200) {
-          return CostModel.fromJson(json.decode(response.data));
+          return CostModel.fromJson(response.data);
         } else {
           throw ServerException();
         }
