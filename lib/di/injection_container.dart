@@ -47,6 +47,6 @@ Future<void> init() async {
   getIt.registerSingleton(DioClient(dio: getIt<Dio>()));
   // getIt.registerLazySingleton(() => InternetConnectionChecker());
 
-  final sharedPreferences = await SharedPreferences.getInstance();
-  getIt.registerLazySingleton(() => sharedPreferences);
+  // final sharedPreferences = await SharedPreferences.getInstance();
+  // getIt.registerLazySingleton(() => sharedPreferences);
 }
