@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pet_service/service_cost/domain/usecases/get_calculated_cost.dart';
 import 'package:pet_service/di/injection_container.dart';
-import 'package:pet_service/service_cost/presentation/home/provider/home_view_model.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/cat_provider.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
 import 'package:provider/provider.dart';
 
-import '/service_cost/presentation/animal/provider/cat_view_model.dart';
-import '/service_cost/presentation/animal/provider/dog_view_model.dart';
 import '/service_cost/presentation/home/pages/home_screen.dart';
 import 'di/injection_container.dart' as di;
+import 'service_cost/presentation/home/provider/home_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,14 +23,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<HomeViewModel>(
-          create: (_) => HomeViewModel(getCalculatedCostUseCase: usecase),
+        ChangeNotifierProvider<HomeProvider>(
+          create: (_) => HomeProvider(getCalculatedCostUseCase: usecase),
         ),
-        ChangeNotifierProvider<CatViewModel>(
-          create: (_) => CatViewModel(),
+        ChangeNotifierProvider<CatProvider>(
+          create: (_) => CatProvider(),
         ),
-        ChangeNotifierProvider<DogViewModel>(
-          create: (_) => DogViewModel(),
+        ChangeNotifierProvider<DogProvider>(
+          create: (_) => DogProvider(),
         ),
       ],
       child: MaterialApp(

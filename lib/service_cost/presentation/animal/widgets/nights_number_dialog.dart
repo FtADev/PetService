@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/cat_provider.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../provider/cat_view_model.dart';
-import '../provider/dog_view_model.dart';
 
 class DialogWidget extends StatelessWidget {
   final String text;
@@ -12,12 +11,12 @@ class DialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return text == "Cat"
-        ? Consumer<CatViewModel>(
+        ? Consumer<CatProvider>(
             builder: (context, viewModel, child) => MyAlertDialog(
               viewModel: viewModel,
             ),
           )
-        : Consumer<DogViewModel>(
+        : Consumer<DogProvider>(
             builder: (context, viewModel, child) => MyAlertDialog(
               viewModel: viewModel,
             ),

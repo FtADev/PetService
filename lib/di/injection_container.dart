@@ -6,14 +6,15 @@ import '../service_cost/data/datasources/cost_data_source.dart';
 import '../service_cost/data/repositories/service_repository_impl.dart';
 import '../service_cost/domain/repositories/service_repository.dart';
 import '../service_cost/domain/usecases/get_calculated_cost.dart';
-import '../service_cost/presentation/home/provider/home_view_model.dart';
+import '../service_cost/presentation/home/provider/home_provider.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> init() async {
+
   // Provider
   getIt.registerFactory(
-    () => HomeViewModel(
+    () => HomeProvider(
       getCalculatedCostUseCase: getIt(),
     ),
   );

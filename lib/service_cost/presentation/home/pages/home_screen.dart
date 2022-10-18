@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/service_cost/presentation/home/provider/home_view_model.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/cat_provider.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
 import 'package:pet_service/service_cost/presentation/home/widgets/choose_pet_widget.dart';
 import 'package:provider/provider.dart';
-
-import '../../animal/provider/cat_view_model.dart';
-import '../../animal/provider/dog_view_model.dart';
+import '../provider/home_provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    CatViewModel catModel = CatViewModel.of(context);
-    DogViewModel dogModel = DogViewModel.of(context);
+    CatProvider catModel = CatProvider.of(context);
+    DogProvider dogModel = DogProvider.of(context);
 
-    return Consumer<HomeViewModel>(builder: (context, viewModel, child) {
+    return Consumer<HomeProvider>(builder: (context, viewModel, child) {
       return Scaffold(
         appBar: AppBar(
           title: const Text("Pet Service"),

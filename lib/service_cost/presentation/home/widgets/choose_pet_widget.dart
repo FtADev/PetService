@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pet_service/service_cost/presentation/animal/pages/choose_services_screen.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/cat_provider.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../animal/provider/cat_view_model.dart';
-import '../../animal/provider/dog_view_model.dart';
 import '../../animal/widgets/animal_card.dart';
 
 class ChoosePetWidget extends StatelessWidget {
@@ -24,7 +24,7 @@ class ChoosePetWidget extends StatelessWidget {
         const SizedBox(
           height: 50,
         ),
-        Consumer<CatViewModel>(
+        Consumer<CatProvider>(
           builder: (context, catModel, child) => AnimalCard(
             text: "Cat",
             detail:
@@ -35,7 +35,7 @@ class ChoosePetWidget extends StatelessWidget {
         const SizedBox(
           width: 8,
         ),
-        Consumer<DogViewModel>(
+        Consumer<DogProvider>(
           builder: (context, dogModel, child) => AnimalCard(
             text: "Dog",
             detail:

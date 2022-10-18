@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AnimalViewModel extends ChangeNotifier {
+class AnimalProvider extends ChangeNotifier {
   bool _isGrooming = false;
   bool _isReservingHotel = false;
   int _nightsNumber = 0;

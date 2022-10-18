@@ -6,10 +6,10 @@ import '../../../../../core/error/failures.dart';
 import '../../../domain/entities/cost.dart';
 import '../../../domain/usecases/get_calculated_cost.dart';
 
-class HomeViewModel extends ChangeNotifier {
+class HomeProvider extends ChangeNotifier {
   final GetCalculatedCostUseCase getCalculatedCostUseCase;
 
-  HomeViewModel({required this.getCalculatedCostUseCase});
+  HomeProvider({required this.getCalculatedCostUseCase});
 
   int _cost = 0;
 
@@ -44,8 +44,8 @@ class HomeViewModel extends ChangeNotifier {
     }
   }
 
-  static HomeViewModel of(BuildContext context) =>
-      Provider.of<HomeViewModel>(context, listen: false);
+  static HomeProvider of(BuildContext context) =>
+      Provider.of<HomeProvider>(context, listen: false);
 
   Future calculateRequest({
     required bool isCatGrooming,

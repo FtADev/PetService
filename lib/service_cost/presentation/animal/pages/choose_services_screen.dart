@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/cat_provider.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
 import 'package:pet_service/service_cost/presentation/animal/widgets/nights_number_dialog.dart';
 import 'package:provider/provider.dart';
 
-import '../provider/cat_view_model.dart';
-import '../provider/dog_view_model.dart';
 import '../widgets/check_box.dart';
 
 class ChooseServices extends StatelessWidget {
@@ -18,13 +18,13 @@ class ChooseServices extends StatelessWidget {
         title: Text("$text Service"),
       ),
       body: text == "Cat"
-          ? Consumer<CatViewModel>(
+          ? Consumer<CatProvider>(
               builder: (context, viewModel, child) => ServiceWidget(
                 viewModel: viewModel,
                 text: "Cat",
               ),
             )
-          : Consumer<DogViewModel>(
+          : Consumer<DogProvider>(
               builder: (context, viewModel, child) => ServiceWidget(
                 viewModel: viewModel,
                 text: "Dog",
