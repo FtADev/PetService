@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/network/dio_client.dart';
-import '../core/network/network_info.dart';
 import '../service_cost/data/datasources/cost_data_source.dart';
 import '../service_cost/data/repositories/service_repository_impl.dart';
 import '../service_cost/domain/repositories/service_repository.dart';
@@ -30,22 +28,17 @@ Future<void> init() async {
       dataSource: getIt(),
     ),
   );
+
   // Data sources
   getIt.registerLazySingleton<CostDataSource>(
     () => CostRemoteDataSourceImpl(
         dioClient: getIt(),
-        // networkInfo: getIt()
     ),
   );
-
-  //! Core
-  getIt.registerLazySingleton<NetworkInfo>(
-      () => NetworkInfoImpl(connectionChecker: getIt()));
 
   //! External
   getIt.registerSingleton(Dio());
   getIt.registerSingleton(DioClient(dio: getIt<Dio>()));
-  // getIt.registerLazySingleton(() => InternetConnectionChecker());
 
   // final sharedPreferences = await SharedPreferences.getInstance();
   // getIt.registerLazySingleton(() => sharedPreferences);

@@ -20,10 +20,8 @@ abstract class CostDataSource {
 
 class CostRemoteDataSourceImpl implements CostDataSource {
   final DioClient dioClient;
-  // final NetworkInfo networkInfo;
 
   CostRemoteDataSourceImpl({
-    // required this.networkInfo,
     required this.dioClient});
 
   @override
@@ -50,7 +48,6 @@ class CostRemoteDataSourceImpl implements CostDataSource {
         ),
       ),
     );
-    // if (await networkInfo.isConnected) {
     try {
       final Response response = await dioClient.post(
         Endpoints.baseUrl,
@@ -68,9 +65,6 @@ class CostRemoteDataSourceImpl implements CostDataSource {
       throw ServerException(
           message: "Sorry, Server could not response right now!");
     }
-    // } else {
-    //   throw NetworkException();
-    // }
   }
 }
 
