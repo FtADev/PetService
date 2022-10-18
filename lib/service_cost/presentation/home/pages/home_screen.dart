@@ -26,6 +26,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
+              viewModel.isLoading ? Container() :
               viewModel.errorMessage == ""
                   ? Text(
                       "\$ ${viewModel.cost}",
