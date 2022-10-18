@@ -53,19 +53,30 @@ class HomeProvider extends ChangeNotifier {
     required bool isDogGrooming,
     required int dogNights,
   }) async {
-    errorMessage = "";
-    isLoading = true;
-    Either<Failure, Cost> res = await getCalculatedCostUseCase(Params(
-      dogNights: dogNights,
-      isDogGrooming: isDogGrooming,
-      catNights: catNights,
+    if (checkIfSthSelected(
       isCatGrooming: isCatGrooming,
-    ));
-    res.fold(
-        (failure) => errorMessage = _mapFailureToMessage(failure),
-        (resCost) => resCost.totalPrice != null ? cost = resCost.totalPrice! : cost = 0);
+      catNights: catNights,
+      isDogGrooming: isDogGrooming,
+      dogNights: dogNights,
+    )) {
+      errorMessage = "";
+      isLoading = true;
+      Either<Failure, Cost> res = await getCalculatedCostUseCase(Params(
+        dogNights: dogNights,
+        isDogGrooming: isDogGrooming,
+        catNights: catNights,
+        isCatGrooming: isCatGrooming,
+      ));
+      res.fold(
+          (failure) => errorMessage = _mapFailureToMessage(failure),
+          (resCost) => resCost.totalPrice != null
+              ? cost = resCost.totalPrice!
+              : cost = 0);
 
-    isLoading = false;
+      isLoading = false;
+    } else {
+      errorMessage = 'No item selected!';
+    }
   }
 
   String _mapFailureToMessage(Failure failure) {
@@ -79,5 +90,14 @@ class HomeProvider extends ChangeNotifier {
       default:
         return 'Unexpected error';
     }
+  }
+
+  bool checkIfSthSelected({
+    required bool isCatGrooming,
+    required int catNights,
+    required bool isDogGrooming,
+    required int dogNights,
+  }) {
+    return (isCatGrooming || isDogGrooming || dogNights != 0 || catNights != 0);
   }
 }
