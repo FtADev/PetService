@@ -3,6 +3,7 @@ import 'package:pet_service/service_cost/presentation/animal/provider/cat_provid
 import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
 import 'package:pet_service/service_cost/presentation/home/widgets/choose_pet_widget.dart';
 import 'package:provider/provider.dart';
+
 import '../provider/home_provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,23 +27,26 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
-              viewModel.isLoading ? Container() :
-              viewModel.errorMessage == ""
-                  ? Text(
-                      "\$ ${viewModel.cost}",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  : Text(
-                      viewModel.errorMessage,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 14,
-                      ),
-                    ),
+              viewModel.isLoading
+                  ? Container()
+                  : viewModel.errorMessage == ""
+                      ? (viewModel.cost != 0
+                          ? Text(
+                              "\$ ${viewModel.cost}",
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          : Container())
+                      : Text(
+                          viewModel.errorMessage,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 14,
+                          ),
+                        ),
               const SizedBox(
                 height: 8,
               ),
