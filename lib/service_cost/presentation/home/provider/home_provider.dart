@@ -60,6 +60,7 @@ class HomeProvider extends ChangeNotifier {
       dogNights: dogNights,
     )) {
       errorMessage = "";
+      cost = 0;
       isLoading = true;
       Either<Failure, Cost> res = await getCalculatedCostUseCase(Params(
         dogNights: dogNights,
