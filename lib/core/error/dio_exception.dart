@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 class DioExceptions implements Exception {
   late String message;
 
+  DioExceptions();
+
   DioExceptions.fromDioError(DioError dioError) {
     switch (dioError.type) {
       case DioErrorType.cancel:

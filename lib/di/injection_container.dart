@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/network/dio_client.dart';
 import '../core/network/network_info.dart';
-import '../service_cost/data/datasources/cost_remote_data_source.dart';
+import '../service_cost/data/datasources/cost_data_source.dart';
 import '../service_cost/data/repositories/service_repository_impl.dart';
 import '../service_cost/domain/repositories/service_repository.dart';
 import '../service_cost/domain/usecases/get_calculated_cost.dart';
@@ -29,15 +29,12 @@ Future<void> init() async {
   // Repository
   getIt.registerLazySingleton<ServiceRepository>(
     () => ServiceRepositoryImpl(
-      // localDataSource: getIt(),
-      networkInfo: getIt(),
-      remoteDataSource: getIt(),
+      dataSource: getIt(),
     ),
   );
-
   // Data sources
-  getIt.registerLazySingleton<CostRemoteDataSource>(
-    () => CostRemoteDataSourceImpl(dioClient: getIt()),
+  getIt.registerLazySingleton<CostDataSource>(
+    () => CostRemoteDataSourceImpl(dioClient: getIt(), networkInfo: getIt()),
   );
 
   //! Core

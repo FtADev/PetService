@@ -7,6 +7,7 @@ import '../../../domain/entities/cost.dart';
 import '../../../domain/usecases/get_calculated_cost.dart';
 
 const String SERVER_FAILURE_MESSAGE = 'Server Failure';
+const String Network_FAILURE_MESSAGE = 'No Connection';
 const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
 
 class HomeViewModel extends ChangeNotifier {
@@ -56,6 +57,7 @@ class HomeViewModel extends ChangeNotifier {
     required bool isDogGrooming,
     required int dogNights,
   }) async {
+    errorMessage = "";
     isLoading = true;
     Either<Failure, Cost> res = await getCalculatedCostUseCase(Params(
       dogNights: dogNights,
@@ -74,6 +76,8 @@ class HomeViewModel extends ChangeNotifier {
     switch (failure.runtimeType) {
       case ServerFailure:
         return SERVER_FAILURE_MESSAGE;
+      case NetworkFailure:
+        return Network_FAILURE_MESSAGE;
       case CacheFailure:
         return CACHE_FAILURE_MESSAGE;
       default:
