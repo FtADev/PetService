@@ -3,8 +3,6 @@ import 'package:dio/dio.dart';
 class DioExceptions implements Exception {
   late String message;
 
-  DioExceptions();
-
   DioExceptions.fromDioError(DioError dioError) {
     switch (dioError.type) {
       case DioErrorType.cancel:
@@ -47,13 +45,13 @@ class DioExceptions implements Exception {
       case 403:
         return 'Forbidden';
       case 404:
-        return error['message'];
+        return 'Address not found';
       case 500:
         return 'Internal server error';
       case 502:
         return 'Bad gateway';
       default:
-        return 'Oops something went wrong';
+        return 'No response, maybe you are in web client!';
     }
   }
 

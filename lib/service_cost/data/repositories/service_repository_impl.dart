@@ -27,8 +27,8 @@ class ServiceRepositoryImpl implements ServiceRepository {
         dogNights: dogNights,
       );
       return Right(remoteCost);
-    } on ServerException {
-      return Left(ServerFailure());
+    } on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message));
     } on NetworkException {
       return Left(NetworkFailure());
     }

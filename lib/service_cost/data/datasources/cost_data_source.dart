@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
+import 'package:pet_service/core/error/dio_exception.dart';
 import 'package:pet_service/core/network/dio_client.dart';
-import 'package:pet_service/core/network/network_info.dart';
 import 'package:pet_service/core/util/endpoints.dart';
 
 import '../../../../core/error/exceptions.dart';
@@ -53,20 +51,23 @@ class CostRemoteDataSourceImpl implements CostDataSource {
       ),
     );
     // if (await networkInfo.isConnected) {
-      try {
-        final Response response = await dioClient.post(
-          Endpoints.baseUrl,
-          data: reqModel.toJson(),
-        );
-        if (response.statusCode == 200) {
-          return CostModel.fromJson(response.data);
-        } else {
-          throw ServerException();
-        }
-      } catch (e) {
-        print(e);
-        throw ServerException();
+    try {
+      final Response response = await dioClient.post(
+        Endpoints.baseUrl,
+        data: reqModel.toJson(),
+      );
+      if (response.statusCode == 200) {
+        return CostModel.fromJson(response.data);
+      } else {
+        throw ServerException(message: "Incorrect Request");
       }
+    } on DioError catch (e) {
+      final errorMessage = DioExceptions.fromDioError(e).toString();
+      throw ServerException(message: errorMessage);
+    } catch (e) {
+      throw ServerException(
+          message: "Sorry, Server could not response right now!");
+    }
     // } else {
     //   throw NetworkException();
     // }
@@ -84,7 +85,7 @@ class CostLocalDataSourceImpl implements CostDataSource {
       await Future.delayed(const Duration(seconds: 1));
       return CostModel(totalPrice: 0);
     } catch (e) {
-      throw ServerException();
+      throw CacheException();
     }
   }
 }
