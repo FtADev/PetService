@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/data/repository/service_repository.dart';
-import 'package:pet_service/di/service_locator.dart';
-import 'package:pet_service/ui/view_models/cat_view_model.dart';
-import 'package:pet_service/ui/view_models/dog_view_model.dart';
-import 'package:pet_service/ui/home_screen.dart';
-import 'package:pet_service/ui/view_models/home_view_model.dart';
+import 'package:pet_service/service_cost/domain/usecases/get_calculated_cost.dart';
+import 'package:pet_service/di/injection_container.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/cat_provider.dart';
+import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  setup();
+import '/service_cost/presentation/home/pages/home_screen.dart';
+import 'di/injection_container.dart' as di;
+import 'service_cost/presentation/home/provider/home_provider.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  final serviceRepository = getIt.get<ServiceRepository>();
+  final usecase = getIt.get<GetCalculatedCostUseCase>();
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<HomeViewModel>(
-          create: (_) => HomeViewModel(serviceRepository),
+        ChangeNotifierProvider<HomeProvider>(
+          create: (_) => HomeProvider(getCalculatedCostUseCase: usecase),
         ),
-        ChangeNotifierProvider<CatViewModel>(
-          create: (_) => CatViewModel(),
+        ChangeNotifierProvider<CatProvider>(
+          create: (_) => CatProvider(),
         ),
-        ChangeNotifierProvider<DogViewModel>(
-          create: (_) => DogViewModel(),
+        ChangeNotifierProvider<DogProvider>(
+          create: (_) => DogProvider(),
         ),
       ],
       child: MaterialApp(
