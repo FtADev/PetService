@@ -17,12 +17,12 @@ class CheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        GestureDetector(
-          onTap: onChange,
-          child: Container(
+    return GestureDetector(
+      onTap: onChange,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
             width: 25,
             height: 25,
             decoration: BoxDecoration(
@@ -40,16 +40,16 @@ class CheckBox extends StatelessWidget {
               color: !isSelected ? const Color(0xFFf5f5f5) : Colors.white,
             ),
           ),
-        ),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
+          const SizedBox(width: 8),
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
