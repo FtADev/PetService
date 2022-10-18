@@ -12,16 +12,16 @@ class DialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return text == "Cat"
-        ? Consumer<CatViewModel>(builder: (context, viewModel, child) {
-            return MyAlertDialog(
+        ? Consumer<CatViewModel>(
+            builder: (context, viewModel, child) => MyAlertDialog(
               viewModel: viewModel,
-            );
-          })
-        : Consumer<DogViewModel>(builder: (context, viewModel, child) {
-            return MyAlertDialog(
+            ),
+          )
+        : Consumer<DogViewModel>(
+            builder: (context, viewModel, child) => MyAlertDialog(
               viewModel: viewModel,
-            );
-          });
+            ),
+          );
   }
 }
 
@@ -63,9 +63,7 @@ class MyAlertDialog extends StatelessWidget {
             textStyle: Theme.of(context).textTheme.labelLarge,
           ),
           child: const Text('Save'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ],
     );

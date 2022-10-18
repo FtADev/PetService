@@ -6,9 +6,6 @@ import '../../../../../core/error/failures.dart';
 import '../../../domain/entities/cost.dart';
 import '../../../domain/usecases/get_calculated_cost.dart';
 
-const String Network_FAILURE_MESSAGE = 'No Connection';
-const String CACHE_FAILURE_MESSAGE = 'Cache Failure';
-
 class HomeViewModel extends ChangeNotifier {
   final GetCalculatedCostUseCase getCalculatedCostUseCase;
 
@@ -76,9 +73,9 @@ class HomeViewModel extends ChangeNotifier {
       case ServerFailure:
         return (failure as ServerFailure).message;
       case NetworkFailure:
-        return Network_FAILURE_MESSAGE;
+        return 'No Connection';
       case CacheFailure:
-        return CACHE_FAILURE_MESSAGE;
+        return 'Cache Failure';
       default:
         return 'Unexpected error';
     }

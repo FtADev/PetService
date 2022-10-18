@@ -28,8 +28,14 @@ class Params extends Equatable {
   final bool isDogGrooming;
   final int dogNights;
 
-  const Params({required this.isCatGrooming, required this.catNights, required this.isDogGrooming, required this.dogNights,});
+  const Params({
+    required this.isCatGrooming,
+    required this.catNights,
+    required this.isDogGrooming,
+    required this.dogNights,
+  });
 
   @override
-  List<Object> get props => [isCatGrooming, catNights, isDogGrooming, dogNights];
+  List<Object> get props =>
+      [isCatGrooming, catNights, isDogGrooming, dogNights];
 }

@@ -29,11 +29,7 @@ class ChoosePetWidget extends StatelessWidget {
             text: "Cat",
             detail:
             "${catModel.nightsNumber} Nights ${(!catModel.isGrooming) ? "without" : "with"} Grooming",
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ChooseServices(text: "Cat"),
-              ),
-            ),
+            onTap: () => goToChooseServicePage(context, "Cat"),
           ),
         ),
         const SizedBox(
@@ -44,14 +40,19 @@ class ChoosePetWidget extends StatelessWidget {
             text: "Dog",
             detail:
             "${dogModel.nightsNumber} Nights ${(!dogModel.isGrooming) ? "without" : "with"} Grooming",
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const ChooseServices(text: "Dog"),
-              ),
-            ),
+            onTap: () => goToChooseServicePage(context, "Dog"),
           ),
         ),
       ]),
     );
   }
+
+  void goToChooseServicePage(BuildContext context, String title) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ChooseServices(text: title),
+      ),
+    );
+  }
+
 }

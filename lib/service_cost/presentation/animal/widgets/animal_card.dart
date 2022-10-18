@@ -5,9 +5,12 @@ class AnimalCard extends StatelessWidget {
   final String detail;
   final VoidCallback? onTap;
 
-  const AnimalCard(
-      {Key? key, required this.text, required this.onTap, required this.detail})
-      : super(key: key);
+  const AnimalCard({
+    Key? key,
+    required this.text,
+    required this.onTap,
+    required this.detail,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,9 @@ class AnimalCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Text(
                 detail,
                 style: const TextStyle(
