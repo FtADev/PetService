@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               )
                   : Text(
-                "${viewModel.errorMessage}",
+                viewModel.errorMessage,
                 style: const TextStyle(
                   color: Colors.red,
                   fontSize: 14,
