@@ -31,6 +31,11 @@ Future<void> init() async {
   );
 
   // Data sources
+  // If you want to read data from other data source,
+  // you can just change CostRemoteDataSourceImpl to what you want
+  // for example: getIt.registerLazySingleton<CostDataSource>(
+  //     () => CostLocalDataSourceImpl(),
+  //   );
   getIt.registerLazySingleton<CostDataSource>(
     () => CostRemoteDataSourceImpl(
         dioClient: getIt(),
