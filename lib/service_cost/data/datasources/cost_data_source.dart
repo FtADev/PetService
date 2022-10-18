@@ -22,10 +22,11 @@ abstract class CostDataSource {
 
 class CostRemoteDataSourceImpl implements CostDataSource {
   final DioClient dioClient;
-  final NetworkInfo networkInfo;
+  // final NetworkInfo networkInfo;
 
-  CostRemoteDataSourceImpl(
-      {required this.networkInfo, required this.dioClient});
+  CostRemoteDataSourceImpl({
+    // required this.networkInfo,
+    required this.dioClient});
 
   @override
   Future<CostModel> getCalculatedCost(
@@ -51,7 +52,7 @@ class CostRemoteDataSourceImpl implements CostDataSource {
         ),
       ),
     );
-    if (await networkInfo.isConnected) {
+    // if (await networkInfo.isConnected) {
       try {
         final Response response = await dioClient.post(
           Endpoints.baseUrl,
@@ -66,9 +67,9 @@ class CostRemoteDataSourceImpl implements CostDataSource {
         print(e);
         throw ServerException();
       }
-    } else {
-      throw NetworkException();
-    }
+    // } else {
+    //   throw NetworkException();
+    // }
   }
 }
 

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/network/dio_client.dart';
@@ -11,20 +10,19 @@ import '../service_cost/domain/repositories/service_repository.dart';
 import '../service_cost/domain/usecases/get_calculated_cost.dart';
 import '../service_cost/presentation/home/provider/home_view_model.dart';
 
-
 final getIt = GetIt.instance;
 
 Future<void> init() async {
-
   // Provider
   getIt.registerFactory(
-        () => HomeViewModel(
+    () => HomeViewModel(
       getCalculatedCostUseCase: getIt(),
     ),
   );
 
   // Use cases
-  getIt.registerLazySingleton(() => GetCalculatedCostUseCase(repository: getIt()));
+  getIt.registerLazySingleton(
+      () => GetCalculatedCostUseCase(repository: getIt()));
 
   // Repository
   getIt.registerLazySingleton<ServiceRepository>(
@@ -34,16 +32,20 @@ Future<void> init() async {
   );
   // Data sources
   getIt.registerLazySingleton<CostDataSource>(
-    () => CostRemoteDataSourceImpl(dioClient: getIt(), networkInfo: getIt()),
+    () => CostRemoteDataSourceImpl(
+        dioClient: getIt(),
+        // networkInfo: getIt()
+    ),
   );
 
   //! Core
-  getIt.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: getIt()));
+  getIt.registerLazySingleton<NetworkInfo>(
+      () => NetworkInfoImpl(connectionChecker: getIt()));
 
   //! External
   getIt.registerSingleton(Dio());
   getIt.registerSingleton(DioClient(dio: getIt<Dio>()));
-  getIt.registerLazySingleton(() => InternetConnectionChecker());
+  // getIt.registerLazySingleton(() => InternetConnectionChecker());
 
   final sharedPreferences = await SharedPreferences.getInstance();
   getIt.registerLazySingleton(() => sharedPreferences);
