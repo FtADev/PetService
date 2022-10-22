@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/service_cost/presentation/animal/provider/cat_provider.dart';
-import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_service/service_cost/presentation/all_provider.dart';
 
-class DialogWidget extends StatelessWidget {
+class DialogWidget extends ConsumerWidget {
   final String text;
 
   const DialogWidget({super.key, required this.text});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return text == "Cat"
-        ? Consumer<CatProvider>(
-            builder: (context, viewModel, child) => MyAlertDialog(
-              viewModel: viewModel,
-            ),
+        ? MyAlertDialog(
+            viewModel: ref.watch(catModel),
           )
-        : Consumer<DogProvider>(
-            builder: (context, viewModel, child) => MyAlertDialog(
-              viewModel: viewModel,
-            ),
+        : MyAlertDialog(
+            viewModel: ref.watch(dogModel),
           );
   }
 }

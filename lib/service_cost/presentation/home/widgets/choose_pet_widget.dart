@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_service/service_cost/presentation/all_provider.dart';
 import 'package:pet_service/service_cost/presentation/animal/pages/choose_services_screen.dart';
-import 'package:pet_service/service_cost/presentation/animal/provider/cat_provider.dart';
-import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
-import 'package:provider/provider.dart';
 
 import '../../animal/widgets/animal_card.dart';
 
-class ChoosePetWidget extends StatelessWidget {
+class ChoosePetWidget extends ConsumerWidget {
   const ChoosePetWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -24,24 +23,20 @@ class ChoosePetWidget extends StatelessWidget {
         const SizedBox(
           height: 50,
         ),
-        Consumer<CatProvider>(
-          builder: (context, catModel, child) => AnimalCard(
-            text: "Cat",
-            detail:
-            "${catModel.nightsNumber} Nights ${(!catModel.isGrooming) ? "without" : "with"} Grooming",
-            onTap: () => goToChooseServicePage(context, "Cat"),
-          ),
+        AnimalCard(
+          text: "Cat",
+          detail:
+              "${ref.watch(catModel).nightsNumber} Nights ${(!ref.watch(catModel).isGrooming) ? "without" : "with"} Grooming",
+          onTap: () => goToChooseServicePage(context, "Cat"),
         ),
         const SizedBox(
           width: 8,
         ),
-        Consumer<DogProvider>(
-          builder: (context, dogModel, child) => AnimalCard(
-            text: "Dog",
-            detail:
-            "${dogModel.nightsNumber} Nights ${(!dogModel.isGrooming) ? "without" : "with"} Grooming",
-            onTap: () => goToChooseServicePage(context, "Dog"),
-          ),
+        AnimalCard(
+          text: "Dog",
+          detail:
+              "${ref.watch(dogModel).nightsNumber} Nights ${(!ref.watch(dogModel).isGrooming) ? "without" : "with"} Grooming",
+          onTap: () => goToChooseServicePage(context, "Dog"),
         ),
       ]),
     );
@@ -54,5 +49,4 @@ class ChoosePetWidget extends StatelessWidget {
       ),
     );
   }
-
 }

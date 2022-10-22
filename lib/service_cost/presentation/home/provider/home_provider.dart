@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_service/di/injection_container.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../../core/error/failures.dart';
 import '../../../domain/entities/cost.dart';
@@ -42,9 +41,6 @@ class HomeProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  static HomeProvider of(BuildContext context) =>
-      Provider.of<HomeProvider>(context, listen: false);
 
   Future calculateRequest({
     required bool isCatGrooming,
