@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet_service/service_cost/presentation/all_provider.dart';
-import 'package:pet_service/service_cost/presentation/animal/widgets/nights_number_dialog.dart';
 
+import '../provider/all_providers.dart';
 import '../widgets/check_box.dart';
+import '../widgets/nights_number_dialog.dart';
 
 class ChooseServices extends ConsumerWidget {
   final String text;

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet_service/service_cost/presentation/all_provider.dart';
-import 'package:pet_service/service_cost/presentation/home/widgets/choose_pet_widget.dart';
+
+import '../provider/all_providers.dart';
+import '../widgets/choose_pet_widget.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);

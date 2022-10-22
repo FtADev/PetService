@@ -6,12 +6,10 @@ import '../service_cost/data/datasources/cost_data_source.dart';
 import '../service_cost/data/repositories/service_repository_impl.dart';
 import '../service_cost/domain/repositories/service_repository.dart';
 import '../service_cost/domain/usecases/get_calculated_cost.dart';
-import '../service_cost/presentation/home/provider/home_provider.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> init() async {
-
   // Use cases
   getIt.registerLazySingleton(
       () => GetCalculatedCostUseCase(repository: getIt()));
@@ -31,7 +29,7 @@ Future<void> init() async {
   //   );
   getIt.registerLazySingleton<CostDataSource>(
     () => CostRemoteDataSourceImpl(
-        dioClient: getIt(),
+      dioClient: getIt(),
     ),
   );
 

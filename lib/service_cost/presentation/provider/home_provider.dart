@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_service/di/injection_container.dart';
 
-import '../../../../../core/error/failures.dart';
-import '../../../domain/entities/cost.dart';
-import '../../../domain/usecases/get_calculated_cost.dart';
+import '../../../../core/error/failures.dart';
+import '../../domain/entities/cost.dart';
+import '../../domain/usecases/get_calculated_cost.dart';
 
 class HomeProvider extends ChangeNotifier {
   final GetCalculatedCostUseCase getCalculatedCostUseCase = getIt.get<GetCalculatedCostUseCase>();

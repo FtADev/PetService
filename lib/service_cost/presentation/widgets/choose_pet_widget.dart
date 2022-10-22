@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet_service/service_cost/presentation/all_provider.dart';
-import 'package:pet_service/service_cost/presentation/animal/pages/choose_services_screen.dart';
+import 'package:pet_service/service_cost/presentation/pages/choose_services_screen.dart';
 
-import '../../animal/widgets/animal_card.dart';
+import '../provider/all_providers.dart';
+import 'animal_card.dart';
 
 class ChoosePetWidget extends ConsumerWidget {
   const ChoosePetWidget({Key? key}) : super(key: key);

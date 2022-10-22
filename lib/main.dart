@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '/service_cost/presentation/home/pages/home_screen.dart';
+import 'service_cost/presentation/pages/home_screen.dart';
 import 'di/injection_container.dart' as di;
 
 Future<void> main() async {

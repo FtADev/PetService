@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pet_service/service_cost/presentation/all_provider.dart';
+
+import '../provider/all_providers.dart';
 
 class DialogWidget extends ConsumerWidget {
   final String text;
