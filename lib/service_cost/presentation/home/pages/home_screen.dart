@@ -1,75 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:pet_service/service_cost/presentation/animal/provider/cat_provider.dart';
-import 'package:pet_service/service_cost/presentation/animal/provider/dog_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pet_service/service_cost/presentation/all_provider.dart';
 import 'package:pet_service/service_cost/presentation/home/widgets/choose_pet_widget.dart';
-import 'package:provider/provider.dart';
 
-import '../provider/home_provider.dart';
-
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    CatProvider catModel = CatProvider.of(context);
-    DogProvider dogModel = DogProvider.of(context);
-
-    return Consumer<HomeProvider>(builder: (context, viewModel, child) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text("Pet Service"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const ChoosePetWidget(),
-              const SizedBox(
-                height: 50,
-              ),
-              viewModel.isLoading
-                  ? Container()
-                  : viewModel.errorMessage == ""
-                      ? (viewModel.cost != 0
-                          ? Text(
-                              "\$ ${viewModel.cost}",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          : Container())
-                      : Text(
-                          viewModel.errorMessage,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 14,
-                          ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Pet Service"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const ChoosePetWidget(),
+            const SizedBox(
+              height: 50,
+            ),
+            ref.watch(homeModel).isLoading
+                ? Container()
+                : ref.watch(homeModel).errorMessage == ""
+                    ? (ref.watch(homeModel).cost != 0
+                        ? Text(
+                            "\$ ${ref.watch(homeModel).cost}",
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Container())
+                    : Text(
+                        ref.watch(homeModel).errorMessage,
+                        style: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 14,
                         ),
-              const SizedBox(
-                height: 8,
-              ),
-              ElevatedButton(
-                child: viewModel.isLoading
-                    ? Container(
-                        margin: const EdgeInsets.all(5),
-                        child: const CircularProgressIndicator(
-                          color: Colors.white,
-                        ),
-                      )
-                    : const Text("Calculate Cost"),
-                onPressed: () async => await viewModel.calculateRequest(
-                  dogNights: dogModel.nightsNumber,
-                  isDogGrooming: dogModel.isGrooming,
-                  catNights: catModel.nightsNumber,
-                  isCatGrooming: catModel.isGrooming,
-                ),
-              )
-            ],
-          ),
+                      ),
+            const SizedBox(
+              height: 8,
+            ),
+            ElevatedButton(
+              child: ref.watch(homeModel).isLoading
+                  ? Container(
+                      margin: const EdgeInsets.all(5),
+                      child: const CircularProgressIndicator(
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Text("Calculate Cost"),
+              onPressed: () async =>
+                  await ref.watch(homeModel).calculateRequest(
+                        dogNights: ref.read(dogModel).nightsNumber,
+                        isDogGrooming: ref.read(dogModel).isGrooming,
+                        catNights: ref.read(catModel).nightsNumber,
+                        isCatGrooming: ref.read(catModel).isGrooming,
+                      ),
+            )
+          ],
         ),
-      );
-    });
+      ),
+    );
   }
 }
