@@ -12,13 +12,6 @@ final getIt = GetIt.instance;
 
 Future<void> init() async {
 
-  // Provider
-  getIt.registerFactory(
-    () => HomeProvider(
-      getCalculatedCostUseCase: getIt(),
-    ),
-  );
-
   // Use cases
   getIt.registerLazySingleton(
       () => GetCalculatedCostUseCase(repository: getIt()));

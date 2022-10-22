@@ -17,14 +17,13 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  final usecase = getIt.get<GetCalculatedCostUseCase>();
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<HomeProvider>(
-          create: (_) => HomeProvider(getCalculatedCostUseCase: usecase),
+          create: (_) => HomeProvider(),
         ),
         ChangeNotifierProvider<CatProvider>(
           create: (_) => CatProvider(),
