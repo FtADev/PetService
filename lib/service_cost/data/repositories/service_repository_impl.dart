@@ -14,7 +14,7 @@ class ServiceRepositoryImpl implements ServiceRepository {
   });
 
   @override
-  Future<Either<Failure, Cost>> getCalculatedConst(
+  Future<Either<Failure, Cost>> getCalculatedCost(
       {required bool isCatGrooming,
       required int catNights,
       required bool isDogGrooming,

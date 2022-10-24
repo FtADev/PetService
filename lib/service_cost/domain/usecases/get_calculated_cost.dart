@@ -13,7 +13,7 @@ class GetCalculatedCostUseCase implements UseCase<Cost, Params> {
 
   @override
   Future<Either<Failure, Cost>> call(Params params) async {
-    return await repository.getCalculatedConst(
+    return await repository.getCalculatedCost(
       isCatGrooming: params.isCatGrooming,
       catNights: params.catNights,
       isDogGrooming: params.isDogGrooming,
