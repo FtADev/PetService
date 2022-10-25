@@ -1,4 +1,4 @@
-import 'package:pet_service/core/network/api.dart';
+import 'package:pet_service/service_cost/data/api/get_cost_api.dart';
 import 'package:pet_service/service_cost/domain/entities/pet_service_cost.dart';
 
 import '../models/calculate_result_model.dart';
@@ -12,9 +12,9 @@ abstract class CostDataSource {
 }
 
 class CostRemoteDataSourceImpl implements CostDataSource {
-  final API api;
+  final GetCostApi costApi;
 
-  CostRemoteDataSourceImpl({required this.api});
+  CostRemoteDataSourceImpl({required this.costApi});
 
   @override
   Future<CostModel> getCalculatedCost(
@@ -22,7 +22,7 @@ class CostRemoteDataSourceImpl implements CostDataSource {
       required int catNights,
       required bool isDogGrooming,
       required int dogNights}) async {
-    final remoteCost = await api.makeRequest(PetServiceCost(
+    final remoteCost = await costApi.makeRequest(PetServiceCost(
       isCatGrooming: isCatGrooming,
       catNights: catNights,
       isDogGrooming: isDogGrooming,

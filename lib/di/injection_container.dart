@@ -28,15 +28,16 @@ Future<void> init() async {
   // Data Source
   getIt.registerLazySingleton<CostDataSource>(
     () => CostRemoteDataSourceImpl(
-      api: getIt(),
+      costApi: getIt(),
     ),
   );
 
   // API
-  getIt.registerLazySingleton<API>(
-    () => GetCostApi(),
-  );
+  // getIt.registerLazySingleton<API>(
+  //   () => GetCostApi(),
+  // );
 
   // Network
   getIt.registerSingleton(Dio());
+  getIt.registerSingleton(GetCostApi());
 }
