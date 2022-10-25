@@ -34,10 +34,9 @@ Future<void> init() async {
 
   // API
   getIt.registerLazySingleton<API>(
-    () => GetCostApi(dioClient: getIt()),
+    () => GetCostApi(),
   );
 
   // Network
   getIt.registerSingleton(Dio());
-  getIt.registerSingleton(DioClient(dio: getIt<Dio>()));
 }

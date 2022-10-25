@@ -3,7 +3,7 @@ import 'package:pet_service/core/network/api.dart';
 import 'package:pet_service/service_cost/data/api/get_cost_api_request.dart';
 
 class GetCostApi extends API {
-  GetCostApi({required super.dioClient}) : super(apiRequest: GetCostAPIRequest());
+  GetCostApi() : super(apiRequest: GetCostAPIRequest());
 
   @override
   String getUrl() => Endpoints.baseUrl;
