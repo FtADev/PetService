@@ -228,16 +228,6 @@ class "pet_service::service_cost::presentation::provider::animal_provider.dart::
 
 "flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "pet_service::service_cost::presentation::provider::animal_provider.dart::AnimalProvider"
 
-class "pet_service::service_cost::presentation::provider::cat_provider.dart::CatProvider" {
-}
-
-"pet_service::service_cost::presentation::provider::animal_provider.dart::AnimalProvider" <|-- "pet_service::service_cost::presentation::provider::cat_provider.dart::CatProvider"
-
-class "pet_service::service_cost::presentation::provider::dog_provider.dart::DogProvider" {
-}
-
-"pet_service::service_cost::presentation::provider::animal_provider.dart::AnimalProvider" <|-- "pet_service::service_cost::presentation::provider::dog_provider.dart::DogProvider"
-
 class "pet_service::service_cost::presentation::provider::home_provider.dart::HomeProvider" {
   +GetCalculatedCostUseCase getCalculatedCostUseCase
   -int _cost
