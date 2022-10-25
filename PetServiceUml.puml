@@ -1,0 +1,302 @@
+@startuml
+set namespaceSeparator ::
+
+class "pet_service::core::error::dio_exception.dart::DioExceptions" {
+  +String message
+  -String _handleError()
+  +String toString()
+}
+
+"dart::core::Exception" <|-- "pet_service::core::error::dio_exception.dart::DioExceptions"
+
+class "pet_service::core::error::exceptions.dart::ServerException" {
+  +String message
+}
+
+"dart::core::Exception" <|-- "pet_service::core::error::exceptions.dart::ServerException"
+
+class "pet_service::core::error::exceptions.dart::NetworkException" {
+}
+
+"dart::core::Exception" <|-- "pet_service::core::error::exceptions.dart::NetworkException"
+
+class "pet_service::core::error::exceptions.dart::CacheException" {
+}
+
+"dart::core::Exception" <|-- "pet_service::core::error::exceptions.dart::CacheException"
+
+abstract class "pet_service::core::error::failures.dart::Failure" {
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "pet_service::core::error::failures.dart::Failure"
+
+class "pet_service::core::error::failures.dart::ServerFailure" {
+  +String message
+}
+
+"pet_service::core::error::failures.dart::Failure" <|-- "pet_service::core::error::failures.dart::ServerFailure"
+
+class "pet_service::core::error::failures.dart::NetworkFailure" {
+}
+
+"pet_service::core::error::failures.dart::Failure" <|-- "pet_service::core::error::failures.dart::NetworkFailure"
+
+class "pet_service::core::error::failures.dart::CacheFailure" {
+}
+
+"pet_service::core::error::failures.dart::Failure" <|-- "pet_service::core::error::failures.dart::CacheFailure"
+
+abstract class "pet_service::core::network::api.dart::API" {
+  +APIRequest<dynamic> apiRequest
+  +String getUrl()
+  +String getHttpMethod()
+  +Map<String, dynamic> getHeader()
+  +Future<dynamic> makeRequest()
+}
+
+"pet_service::core::network::api.dart::API" o-- "pet_service::core::network::api_request.dart::APIRequest<dynamic>"
+
+abstract class "pet_service::core::network::api_request.dart::APIRequest" {
+  +Map<String, dynamic> prepareRequestToJson()
+}
+
+abstract class "pet_service::core::network::dio_client.dart::DioClient" {
+  +Dio dio
+  +Future<Response<dynamic>> call()
+}
+
+"pet_service::core::network::dio_client.dart::DioClient" o-- "dio::src::dio.dart::Dio"
+
+class "pet_service::core::network::dio_client_factory.dart::DioClientFactory" {
+  {static} +DioClient createDioClient()
+}
+
+class "pet_service::core::network::dio_client_get.dart::DioClientGet" {
+  +Future<Response<dynamic>> call()
+}
+
+"pet_service::core::network::dio_client.dart::DioClient" <|-- "pet_service::core::network::dio_client_get.dart::DioClientGet"
+
+class "pet_service::core::network::dio_client_post.dart::DioClientPost" {
+  +Future<Response<dynamic>> call()
+}
+
+"pet_service::core::network::dio_client.dart::DioClient" <|-- "pet_service::core::network::dio_client_post.dart::DioClientPost"
+
+abstract class "pet_service::core::usecases::usecase.dart::UseCase" {
+  +Future<Either<Failure, Type>> call()
+}
+
+class "pet_service::core::usecases::usecase.dart::NoParams" {
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "pet_service::core::usecases::usecase.dart::NoParams"
+
+class "pet_service::core::util::endpoints.dart::Endpoints" {
+  {static} +String baseUrl
+  {static} +int receiveTimeout
+  {static} +int connectionTimeout
+}
+
+class "pet_service::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "pet_service::main.dart::MyApp"
+
+class "pet_service::service_cost::data::api::get_cost_api.dart::GetCostApi" {
+  +String getUrl()
+  +String getHttpMethod()
+  +Map<String, dynamic> getHeader()
+}
+
+"pet_service::core::network::api.dart::API" <|-- "pet_service::service_cost::data::api::get_cost_api.dart::GetCostApi"
+
+class "pet_service::service_cost::data::api::get_cost_api_request.dart::GetCostAPIRequest" {
+  +Map<String, dynamic> prepareRequestToJson()
+}
+
+"pet_service::core::network::api_request.dart::APIRequest" <|-- "pet_service::service_cost::data::api::get_cost_api_request.dart::GetCostAPIRequest"
+
+abstract class "pet_service::service_cost::data::datasources::cost_data_source.dart::CostDataSource" {
+  +Future<CostModel> getCalculatedCost()
+}
+
+class "pet_service::service_cost::data::datasources::cost_data_source.dart::CostRemoteDataSourceImpl" {
+  +GetCostApi costApi
+  +Future<CostModel> getCalculatedCost()
+}
+
+"pet_service::service_cost::data::datasources::cost_data_source.dart::CostRemoteDataSourceImpl" o-- "pet_service::service_cost::data::api::get_cost_api.dart::GetCostApi"
+"pet_service::service_cost::data::datasources::cost_data_source.dart::CostDataSource" <|-- "pet_service::service_cost::data::datasources::cost_data_source.dart::CostRemoteDataSourceImpl"
+
+class "pet_service::service_cost::data::datasources::cost_local_data_source.dart::CostLocalDataSourceImpl" {
+  +Future<CostModel> getCalculatedCost()
+}
+
+"pet_service::service_cost::data::datasources::cost_data_source.dart::CostDataSource" <|-- "pet_service::service_cost::data::datasources::cost_local_data_source.dart::CostLocalDataSourceImpl"
+
+class "pet_service::service_cost::data::models::calculate_result_model.dart::CostModel" {
+  +Map<String, dynamic> toJson()
+}
+
+"pet_service::service_cost::domain::entities::cost.dart::Cost" <|-- "pet_service::service_cost::data::models::calculate_result_model.dart::CostModel"
+
+class "pet_service::service_cost::data::repositories::service_repository_impl.dart::ServiceRepositoryImpl" {
+  +CostDataSource dataSource
+  +Future<Either<Failure, Cost>> getCalculatedCost()
+}
+
+"pet_service::service_cost::data::repositories::service_repository_impl.dart::ServiceRepositoryImpl" o-- "pet_service::service_cost::data::datasources::cost_data_source.dart::CostDataSource"
+"pet_service::service_cost::domain::repositories::service_repository.dart::ServiceRepository" <|-- "pet_service::service_cost::data::repositories::service_repository_impl.dart::ServiceRepositoryImpl"
+
+class "pet_service::service_cost::domain::entities::cost.dart::Cost" {
+  +int? totalPrice
+  +List<Object?> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "pet_service::service_cost::domain::entities::cost.dart::Cost"
+
+class "pet_service::service_cost::domain::entities::pet_service_cost.dart::PetServiceCost" {
+  +bool isCatGrooming
+  +int catNights
+  +bool isDogGrooming
+  +int dogNights
+  +List<Object?> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "pet_service::service_cost::domain::entities::pet_service_cost.dart::PetServiceCost"
+
+abstract class "pet_service::service_cost::domain::repositories::service_repository.dart::ServiceRepository" {
+  +Future<Either<Failure, Cost>> getCalculatedCost()
+}
+
+class "pet_service::service_cost::domain::usecases::get_calculated_cost.dart::GetCalculatedCostUseCase" {
+  +ServiceRepository repository
+  +Future<Either<Failure, Cost>> call()
+}
+
+"pet_service::service_cost::domain::usecases::get_calculated_cost.dart::GetCalculatedCostUseCase" o-- "pet_service::service_cost::domain::repositories::service_repository.dart::ServiceRepository"
+"pet_service::core::usecases::usecase.dart::UseCase" <|-- "pet_service::service_cost::domain::usecases::get_calculated_cost.dart::GetCalculatedCostUseCase"
+
+class "pet_service::service_cost::domain::usecases::get_calculated_cost.dart::Params" {
+  +bool isCatGrooming
+  +int catNights
+  +bool isDogGrooming
+  +int dogNights
+  +List<Object> props
+}
+
+"equatable::src::equatable.dart::Equatable" <|-- "pet_service::service_cost::domain::usecases::get_calculated_cost.dart::Params"
+
+class "pet_service::service_cost::presentation::pages::choose_services_screen.dart::ChooseServices" {
+  +String text
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "pet_service::service_cost::presentation::pages::choose_services_screen.dart::ChooseServices"
+
+class "pet_service::service_cost::presentation::pages::choose_services_screen.dart::ServiceWidget" {
+  +dynamic viewModel
+  +String text
+  +dynamic showTextDialog()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "pet_service::service_cost::presentation::pages::choose_services_screen.dart::ServiceWidget"
+
+class "pet_service::service_cost::presentation::pages::home_screen.dart::HomeScreen" {
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "pet_service::service_cost::presentation::pages::home_screen.dart::HomeScreen"
+
+class "pet_service::service_cost::presentation::provider::animal_provider.dart::AnimalProvider" {
+  -bool _isGrooming
+  -bool _isReservingHotel
+  -int _nightsNumber
+  +bool isGrooming
+  +bool isReservingHotel
+  +int nightsNumber
+  +void changeGrooming()
+  +void changeReservingHotel()
+  +void increaseNights()
+  +void decreaseNights()
+}
+
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "pet_service::service_cost::presentation::provider::animal_provider.dart::AnimalProvider"
+
+class "pet_service::service_cost::presentation::provider::cat_provider.dart::CatProvider" {
+}
+
+"pet_service::service_cost::presentation::provider::animal_provider.dart::AnimalProvider" <|-- "pet_service::service_cost::presentation::provider::cat_provider.dart::CatProvider"
+
+class "pet_service::service_cost::presentation::provider::dog_provider.dart::DogProvider" {
+}
+
+"pet_service::service_cost::presentation::provider::animal_provider.dart::AnimalProvider" <|-- "pet_service::service_cost::presentation::provider::dog_provider.dart::DogProvider"
+
+class "pet_service::service_cost::presentation::provider::home_provider.dart::HomeProvider" {
+  +GetCalculatedCostUseCase getCalculatedCostUseCase
+  -int _cost
+  -bool _isLoading
+  -String _errorMessage
+  +int cost
+  +bool isLoading
+  +String errorMessage
+  +Future<dynamic> calculateRequest()
+  -String _mapFailureToMessage()
+  +bool checkIfSthSelected()
+}
+
+"pet_service::service_cost::presentation::provider::home_provider.dart::HomeProvider" o-- "pet_service::service_cost::domain::usecases::get_calculated_cost.dart::GetCalculatedCostUseCase"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "pet_service::service_cost::presentation::provider::home_provider.dart::HomeProvider"
+
+class "pet_service::service_cost::presentation::widgets::animal_card.dart::AnimalCard" {
+  +String text
+  +String detail
+  +void Function()? onTap
+  +Widget build()
+}
+
+"pet_service::service_cost::presentation::widgets::animal_card.dart::AnimalCard" o-- "dart::ui::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "pet_service::service_cost::presentation::widgets::animal_card.dart::AnimalCard"
+
+class "pet_service::service_cost::presentation::widgets::check_box.dart::CheckBox" {
+  +String title
+  +Color containerColor
+  +Color containerBorderColor
+  +bool isSelected
+  +void Function()? onChange
+  +Widget build()
+}
+
+"pet_service::service_cost::presentation::widgets::check_box.dart::CheckBox" o-- "dart::ui::Color"
+"pet_service::service_cost::presentation::widgets::check_box.dart::CheckBox" o-- "flutter::src::gestures::tap.dart::void Function()"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "pet_service::service_cost::presentation::widgets::check_box.dart::CheckBox"
+
+class "pet_service::service_cost::presentation::widgets::choose_pet_widget.dart::ChoosePetWidget" {
+  +Widget build()
+  +void goToChooseServicePage()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "pet_service::service_cost::presentation::widgets::choose_pet_widget.dart::ChoosePetWidget"
+
+class "pet_service::service_cost::presentation::widgets::nights_number_dialog.dart::DialogWidget" {
+  +String text
+  +Widget build()
+}
+
+"flutter_riverpod::src::consumer.dart::ConsumerWidget" <|-- "pet_service::service_cost::presentation::widgets::nights_number_dialog.dart::DialogWidget"
+
+class "pet_service::service_cost::presentation::widgets::nights_number_dialog.dart::MyAlertDialog" {
+  +dynamic viewModel
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "pet_service::service_cost::presentation::widgets::nights_number_dialog.dart::MyAlertDialog"
+
+
+@enduml
