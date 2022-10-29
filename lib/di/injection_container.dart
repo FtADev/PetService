@@ -32,11 +32,6 @@ Future<void> init() async {
     ),
   );
 
-  // API
-  // getIt.registerLazySingleton<API>(
-  //   () => GetCostApi(),
-  // );
-
   // Network
   getIt.registerSingleton(Dio());
   getIt.registerSingleton(GetCostApi());

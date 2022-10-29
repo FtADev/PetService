@@ -65,7 +65,7 @@ class HomeProvider extends ChangeNotifier {
         isCatGrooming: isCatGrooming,
       ));
       res.fold(
-          (failure) => errorMessage = Methods.mapFailureToMessage(failure),
+          (failure) => errorMessage = UtilsMethods.mapFailureToMessage(failure),
           (resCost) => resCost.totalPrice != null
               ? cost = resCost.totalPrice!
               : cost = 0);
@@ -75,8 +75,6 @@ class HomeProvider extends ChangeNotifier {
       errorMessage = 'No item selected!';
     }
   }
-
-
 
   bool checkIfSthSelected({
     required bool isCatGrooming,

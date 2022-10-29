@@ -18,11 +18,11 @@ class ChooseServices extends ConsumerWidget {
       ),
       body: text == "Cat"
           ? ServiceWidget(
-              viewModel: ref.watch(catModel),
+              model: ref.watch(catModel),
               text: "Cat",
             )
           : ServiceWidget(
-              viewModel: ref.watch(dogModel),
+              model: ref.watch(dogModel),
               text: "Dog",
             ),
     );
@@ -30,10 +30,10 @@ class ChooseServices extends ConsumerWidget {
 }
 
 class ServiceWidget extends StatelessWidget {
-  final viewModel;
+  final model;
   final String text;
 
-  const ServiceWidget({Key? key, required this.viewModel, required this.text})
+  const ServiceWidget({Key? key, required this.model, required this.text})
       : super(key: key);
 
   showTextDialog(BuildContext context) {
@@ -67,8 +67,8 @@ class ServiceWidget extends StatelessWidget {
               title: "Grooming",
               containerColor: const Color(0xFF78DDD8),
               containerBorderColor: const Color(0xFF3AC1B0),
-              isSelected: viewModel.isGrooming,
-              onChange: viewModel.changeGrooming,
+              isSelected: model.isGrooming,
+              onChange: model.changeGrooming,
             ),
             const SizedBox(
               height: 24,
@@ -78,13 +78,13 @@ class ServiceWidget extends StatelessWidget {
                 title: "Reserving Hotel",
                 containerColor: const Color(0xFF78DDD8),
                 containerBorderColor: const Color(0xFF3AC1B0),
-                isSelected: viewModel.isReservingHotel,
-                onChange: viewModel.changeReservingHotel,
+                isSelected: model.isReservingHotel,
+                onChange: model.changeReservingHotel,
               ),
-              viewModel.isReservingHotel
+              model.isReservingHotel
                   ? GestureDetector(
                       child: Text(
-                        "${viewModel.nightsNumber} Nights",
+                        "${model.nightsNumber} Nights",
                         style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 14,

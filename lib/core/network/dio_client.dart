@@ -4,6 +4,8 @@ import 'package:pet_service/di/injection_container.dart';
 abstract class DioClient {
   // dio instance
   final Dio dio = getIt.get<Dio>();
+
+  // dio config
   final int connectionTimeOut;
   final String baseUrl;
   final int receiveTimeout;

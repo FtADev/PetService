@@ -1,6 +1,6 @@
 import 'package:pet_service/core/error/failures.dart';
 
-class Methods {
+class UtilsMethods {
   static String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case ServerFailure:

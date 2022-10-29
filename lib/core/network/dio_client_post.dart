@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:pet_service/core/network/api_request.dart';
 
 import 'dio_client.dart';
 
@@ -10,9 +9,9 @@ class DioClientPost extends DioClient {
     required super.connectionTimeOut,
   });
 
-
   @override
-  Future<Response> call(String url, {
+  Future<Response> call(
+    String url, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
