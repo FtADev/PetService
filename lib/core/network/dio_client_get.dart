@@ -22,7 +22,7 @@ class DioClientGet extends DioClient {
     try {
       final Response response = await dio.get(
         url,
-        queryParameters: queryParameters,
+        queryParameters: data,
         options: options,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
