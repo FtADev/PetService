@@ -1,12 +1,17 @@
-
 import 'package:dio/dio.dart';
 
 import 'dio_client.dart';
 
 class DioClientGet extends DioClient {
+  DioClientGet({
+    required super.baseUrl,
+    required super.receiveTimeout,
+    required super.connectionTimeOut,
+  });
 
   @override
-  Future<Response> call(String url, {
+  Future<Response> call(
+    String url, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
@@ -27,8 +32,4 @@ class DioClientGet extends DioClient {
       rethrow;
     }
   }
-
 }
-
-
-

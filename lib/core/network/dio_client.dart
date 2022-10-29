@@ -1,17 +1,22 @@
 import 'package:dio/dio.dart';
-import 'package:pet_service/core/util/endpoints.dart';
 import 'package:pet_service/di/injection_container.dart';
 
 abstract class DioClient {
   // dio instance
   final Dio dio = getIt.get<Dio>();
+  final int connectionTimeOut;
+  final String baseUrl;
+  final int receiveTimeout;
 
-  // injecting dio instance
-  DioClient() {
+  DioClient({
+    required this.baseUrl,
+    required this.receiveTimeout,
+    required this.connectionTimeOut,
+  }) {
     dio
-      ..options.baseUrl = Endpoints.baseUrl
-      ..options.connectTimeout = Endpoints.connectionTimeout
-      ..options.receiveTimeout = Endpoints.receiveTimeout
+      ..options.baseUrl = baseUrl
+      ..options.connectTimeout = connectionTimeOut
+      ..options.receiveTimeout = receiveTimeout
       ..options.responseType = ResponseType.json
       ..interceptors.add(LogInterceptor(
         request: true,
@@ -22,7 +27,8 @@ abstract class DioClient {
       ));
   }
 
-  Future<Response> call(String url, {
+  Future<Response> call(
+    String url, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,

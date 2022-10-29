@@ -11,15 +11,24 @@ abstract class API<T> {
     required this.apiRequest,
   });
 
+  // Default Config
+  String getBaseUrl() => "https://assignment.shly.me/";
+  int getConnectionTimeout() => 15000;
+  int getReceiveTimeout() => 15000;
+
+  // Needed Methods
   String getUrl();
-
   String getHttpMethod();
-
   Map<String, dynamic> getHeader();
 
   Future makeRequest(T model) async {
     try {
-      final Response response = await DioClientFactory.createDioClient(getHttpMethod()).call(
+      final Response response = await DioClientFactory.createDioClient(
+        httpType: getHttpMethod(),
+        baseUrl: getBaseUrl(),
+        receiveTimeOut: getReceiveTimeout(),
+        connectionTimeOut: getConnectionTimeout(),
+      ).call(
         getUrl(),
         data: apiRequest.prepareRequest(model),
         options: Options(headers: getHeader()),
