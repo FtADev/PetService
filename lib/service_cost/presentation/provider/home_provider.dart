@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_service/core/util/methods.dart';
 import 'package:pet_service/di/injection_container.dart';
+import 'package:pet_service/service_cost/domain/entities/pet_service_cost.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/cost.dart';
@@ -58,7 +59,7 @@ class HomeProvider extends ChangeNotifier {
       errorMessage = "";
       cost = 0;
       isLoading = true;
-      Either<Failure, Cost> res = await getCalculatedCostUseCase(Params(
+      Either<Failure, Cost> res = await getCalculatedCostUseCase(PetServiceCost(
         dogNights: dogNights,
         isDogGrooming: isDogGrooming,
         catNights: catNights,

@@ -4,11 +4,7 @@ import 'package:pet_service/service_cost/domain/entities/pet_service_cost.dart';
 import '../models/calculate_result_model.dart';
 
 abstract class CostDataSource {
-  Future<CostModel> getCalculatedCost(
-      {required bool isCatGrooming,
-      required int catNights,
-      required bool isDogGrooming,
-      required int dogNights});
+  Future<CostModel> getCalculatedCost({required PetServiceCost petServiceCost});
 }
 
 class CostRemoteDataSourceImpl implements CostDataSource {
@@ -18,16 +14,8 @@ class CostRemoteDataSourceImpl implements CostDataSource {
 
   @override
   Future<CostModel> getCalculatedCost(
-      {required bool isCatGrooming,
-      required int catNights,
-      required bool isDogGrooming,
-      required int dogNights}) async {
-    final remoteCost = await costApi.makeRequest(PetServiceCost(
-      isCatGrooming: isCatGrooming,
-      catNights: catNights,
-      isDogGrooming: isDogGrooming,
-      dogNights: dogNights,
-    ));
+      {required PetServiceCost petServiceCost}) async {
+    final remoteCost = await costApi.makeRequest(petServiceCost);
     return CostModel.fromJson(remoteCost);
   }
 }
