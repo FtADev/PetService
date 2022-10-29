@@ -21,7 +21,7 @@ abstract class API<T> {
     try {
       final Response response = await DioClientFactory.createDioClient(getHttpMethod()).call(
         getUrl(),
-        data: apiRequest.prepareRequestToJson(model),
+        data: apiRequest.prepareRequest(model),
         options: Options(headers: getHeader()),
       );
       if (response.statusCode == 200) {

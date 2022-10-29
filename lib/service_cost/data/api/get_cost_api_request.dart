@@ -4,7 +4,7 @@ import 'package:pet_service/service_cost/domain/entities/pet_service_cost.dart';
 class GetCostAPIRequest extends APIRequest<PetServiceCost> {
 
   @override
-  Map<String, dynamic> prepareRequestToJson(PetServiceCost model) {
+   prepareRequest(PetServiceCost model) {
     return {
       "dog": {
         "services": {
