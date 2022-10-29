@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_service/core/util/methods.dart';
 import 'package:pet_service/di/injection_container.dart';
 
 import '../../../../core/error/failures.dart';
@@ -64,7 +65,7 @@ class HomeProvider extends ChangeNotifier {
         isCatGrooming: isCatGrooming,
       ));
       res.fold(
-          (failure) => errorMessage = _mapFailureToMessage(failure),
+          (failure) => errorMessage = Methods.mapFailureToMessage(failure),
           (resCost) => resCost.totalPrice != null
               ? cost = resCost.totalPrice!
               : cost = 0);
@@ -75,18 +76,7 @@ class HomeProvider extends ChangeNotifier {
     }
   }
 
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return (failure as ServerFailure).message;
-      case NetworkFailure:
-        return 'No Connection';
-      case CacheFailure:
-        return 'Cache Failure';
-      default:
-        return 'Unexpected error';
-    }
-  }
+
 
   bool checkIfSthSelected({
     required bool isCatGrooming,
