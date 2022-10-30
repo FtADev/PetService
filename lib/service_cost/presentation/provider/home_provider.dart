@@ -50,14 +50,14 @@ class HomeProvider extends ChangeNotifier {
     required bool isDogGrooming,
     required int dogNights,
   }) async {
+    errorMessage = "";
+    cost = 0;
     if (checkIfSthSelected(
       isCatGrooming: isCatGrooming,
       catNights: catNights,
       isDogGrooming: isDogGrooming,
       dogNights: dogNights,
     )) {
-      errorMessage = "";
-      cost = 0;
       isLoading = true;
       Either<Failure, Cost> res = await getCalculatedCostUseCase(PetServiceCost(
         dogNights: dogNights,
