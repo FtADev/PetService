@@ -34,6 +34,9 @@ abstract class API<T> {
         options: Options(headers: getHeader()),
       );
       if (response.statusCode == 200) {
+        // Check if response.data has error field,
+        // if error status code == 0 return data,
+        // else throw ServerException with given error message.
         return response.data;
       } else {
         throw ServerException(message: "Incorrect Request");
