@@ -12,18 +12,18 @@ class DialogWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return text == "Cat"
         ? MyAlertDialog(
-            viewModel: ref.watch(catModel),
+            model: ref.watch(catModel),
           )
         : MyAlertDialog(
-            viewModel: ref.watch(dogModel),
+            model: ref.watch(dogModel),
           );
   }
 }
 
 class MyAlertDialog extends StatelessWidget {
-  final viewModel;
+  final model;
 
-  const MyAlertDialog({Key? key, this.viewModel}) : super(key: key);
+  const MyAlertDialog({Key? key, this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +36,14 @@ class MyAlertDialog extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                onPressed: viewModel.decreaseNights,
+                onPressed: model.decreaseNights,
                 icon: const Icon(
                   Icons.expand_more,
                 ),
               ),
-              Text("${viewModel.nightsNumber} Nights"),
+              Text("${model.nightsNumber} Nights"),
               IconButton(
-                onPressed: viewModel.increaseNights,
+                onPressed: model.increaseNights,
                 icon: const Icon(
                   Icons.expand_less,
                 ),

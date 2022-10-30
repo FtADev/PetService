@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:pet_service/service_cost/domain/entities/pet_service_cost.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -14,18 +15,10 @@ class ServiceRepositoryImpl implements ServiceRepository {
   });
 
   @override
-  Future<Either<Failure, Cost>> getCalculatedConst(
-      {required bool isCatGrooming,
-      required int catNights,
-      required bool isDogGrooming,
-      required int dogNights}) async {
+  Future<Either<Failure, Cost>> getCalculatedCost(
+      {required PetServiceCost petServiceCost}) async {
     try {
-      final remoteCost = await dataSource.getCalculatedCost(
-        isCatGrooming: isCatGrooming,
-        catNights: catNights,
-        isDogGrooming: isDogGrooming,
-        dogNights: dogNights,
-      );
+      final remoteCost = await dataSource.getCalculatedCost(petServiceCost: petServiceCost);
       return Right(remoteCost);
     } on ServerException catch (e) {
       return Left(ServerFailure(message: e.message));

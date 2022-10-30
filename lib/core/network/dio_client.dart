@@ -1,16 +1,24 @@
 import 'package:dio/dio.dart';
-import 'package:pet_service/core/util/endpoints.dart';
+import 'package:pet_service/di/injection_container.dart';
 
-class DioClient {
+abstract class DioClient {
   // dio instance
-  final Dio dio;
+  final Dio dio = getIt.get<Dio>();
 
-  // injecting dio instance
-  DioClient({required this.dio}) {
+  // dio config
+  final int connectionTimeOut;
+  final String baseUrl;
+  final int receiveTimeout;
+
+  DioClient({
+    required this.baseUrl,
+    required this.receiveTimeout,
+    required this.connectionTimeOut,
+  }) {
     dio
-      ..options.baseUrl = Endpoints.baseUrl
-      ..options.connectTimeout = Endpoints.connectionTimeout
-      ..options.receiveTimeout = Endpoints.receiveTimeout
+      ..options.baseUrl = baseUrl
+      ..options.connectTimeout = connectionTimeOut
+      ..options.receiveTimeout = receiveTimeout
       ..options.responseType = ResponseType.json
       ..interceptors.add(LogInterceptor(
         request: true,
@@ -20,51 +28,14 @@ class DioClient {
         responseBody: true,
       ));
   }
-  // Get:-----------------------------------------------------------------------
-  Future<Response> get(
-    String url, {
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    try {
-      final Response response = await dio.get(
-        url,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress,
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
 
-  // Post:----------------------------------------------------------------------
-  Future<Response> post(
-    String uri, {
+  Future<Response> call(
+    String url, {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-  }) async {
-    try {
-      final Response response = await dio.post(
-        uri,
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
+  });
 }

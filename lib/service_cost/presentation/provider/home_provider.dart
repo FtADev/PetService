@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_service/core/util/methods.dart';
 import 'package:pet_service/di/injection_container.dart';
+import 'package:pet_service/service_cost/domain/entities/pet_service_cost.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/cost.dart';
@@ -48,23 +50,23 @@ class HomeProvider extends ChangeNotifier {
     required bool isDogGrooming,
     required int dogNights,
   }) async {
+    errorMessage = "";
+    cost = 0;
     if (checkIfSthSelected(
       isCatGrooming: isCatGrooming,
       catNights: catNights,
       isDogGrooming: isDogGrooming,
       dogNights: dogNights,
     )) {
-      errorMessage = "";
-      cost = 0;
       isLoading = true;
-      Either<Failure, Cost> res = await getCalculatedCostUseCase(Params(
+      Either<Failure, Cost> res = await getCalculatedCostUseCase(PetServiceCost(
         dogNights: dogNights,
         isDogGrooming: isDogGrooming,
         catNights: catNights,
         isCatGrooming: isCatGrooming,
       ));
       res.fold(
-          (failure) => errorMessage = _mapFailureToMessage(failure),
+          (failure) => errorMessage = UtilsMethods.mapFailureToMessage(failure),
           (resCost) => resCost.totalPrice != null
               ? cost = resCost.totalPrice!
               : cost = 0);
@@ -72,19 +74,6 @@ class HomeProvider extends ChangeNotifier {
       isLoading = false;
     } else {
       errorMessage = 'No item selected!';
-    }
-  }
-
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return (failure as ServerFailure).message;
-      case NetworkFailure:
-        return 'No Connection';
-      case CacheFailure:
-        return 'Cache Failure';
-      default:
-        return 'Unexpected error';
     }
   }
 
